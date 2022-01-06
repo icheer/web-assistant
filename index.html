@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- 如旧浏览器不支持shadowDOM, 使用以下polyfill -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2.5.0/webcomponents-bundle.min.js"></script> -->
+  <script type="module" src="./lib/index.js"></script>
+  <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/highlight.js/10.7.3/styles/default.min.css" />
+  <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/10.7.3/highlight.min.js"></script>
+  <style>
+    .hljs-comment,
+    .hljs-quote {
+      color: #7d7a68;
+    }
+
+    .hljs-attribute,
+    .hljs-link,
+    .hljs-name,
+    .hljs-regexp,
+    .hljs-selector-class,
+    .hljs-selector-id,
+    .hljs-tag,
+    .hljs-template-variable,
+    .hljs-variable {
+      color: #d73737;
+    }
+
+    .hljs-built_in,
+    .hljs-builtin-name,
+    .hljs-literal,
+    .hljs-meta,
+    .hljs-number,
+    .hljs-params,
+    .hljs-type {
+      color: #b65611;
+    }
+
+    .hljs-bullet,
+    .hljs-string,
+    .hljs-symbol {
+      color: #60ac39;
+    }
+
+    .hljs-section,
+    .hljs-title {
+      color: #6684e1;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag {
+      color: #b854d4;
+    }
+
+    .hljs {
+      display: block;
+      overflow-x: auto;
+      background: #fefbec;
+      color: #6e6b5e;
+      padding: 0.5em;
+    }
+
+    .hljs-emphasis {
+      font-style: italic;
+    }
+
+    .hljs-strong {
+      font-weight: 700;
+    }
+  </style>
+  <title>web-assistant</title>
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    /*滑块*/
+    ::-webkit-scrollbar-thumb {
+      background-color: #bbb;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #999;
+    }
+
+    /*滑道*/
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 5px #ddd;
+      border-radius: 4px;
+    }
+
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #fefbec;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    h1 {
+      font-size: 26px;
+      line-height: 50px;
+      height: 50px;
+      overflow: hidden;
+      margin: 0;
+      padding: 5px 0;
+      color: #333;
+      text-align: center;
+    }
+
+    h1 a {
+      position: absolute;
+      right: 20px;
+      top: 5px;
+      font-size: 16px;
+    }
+
+    .card {
+      position: relative;
+      /* width: 1000px; */
+      height: calc(100vh - 60px);
+      margin: 0 20px;
+      background: #fff;
+      outline: 1px solid #eee;
+      overflow: auto;
+    }
+
+    .wrap {
+      position: relative;
+      display: flex;
+      height: calc(100vh - 435px);
+      margin-top: 15px;
+    }
+
+    .wrap>* {
+      width: 50%;
+      height: 100%;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .wrap pre.main {
+      width: 48%;
+      height: 100%;
+      box-sizing: border-box;
+      margin: 0 15px 0 20px;
+      padding: 0;
+      overflow: auto;
+      border: 1px solid #ddd;
+    }
+
+    pre.main code {
+      /* height: 100%; */
+      box-sizing: border-box;
+      white-space: pre;
+      margin: 0;
+      padding: 0;
+
+    }
+
+    .usage {
+      position: relative;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      margin-right: 20px;
+      padding: 10px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    p,
+    h2,
+    li {
+      width: 100%;
+      margin: 0.5em 0;
+      white-space: normal;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>
+    <span>web-assistant documentation</span>
+    <a href="https://github.com/icheer/web-assistant" target="_blank">Github</a>
+  </h1>
+  <div class="card">
+    <web-assistant />
+  </div>
+  <!-- <div class="wrap">
+      <pre class="main">
+        <code class="language-js"></code>
+      </pre>
+      <div class="usage">
+        <h2>Intro</h2>
+        <p>A simple Excel-like spreadsheet web component built with <a href="https://github.com/sveltejs/svelte" target="_blank">svelte</a>.</p>
+        <ul>
+          <li>dependency free</li>
+          <li>compatible with any javascript framework/UI library</li>
+          <li>light-weighted (size: 35KB, gzip: ~12KB)</li>
+          <li>multiple cell type supported (input, select, multi-select, image, date, time)</li>
+          <li>support customized validator, formatter and computed function</li>
+          <li>support UNDO/REDO with ctrl+Z & ctrl+Y</li>
+        </ul>
+        <h2>How to use</h2>
+        <p>Install with npm:</p>
+        <pre>
+          <code class="shell">npm install web-spreadsheet --save</code>
+        </pre>
+        <p>and import it in your code:</p>
+        <pre>
+          <code class="language-js">import 'web-spreadsheet';</code>
+        </pre>
+        <p>You can also load the code from a CDN such as jsdelivr:</p>
+        <pre>
+          <code class="language-js">&lt;script src="https://cdn.jsdelivr.net/npm/web-spreadsheet@latest/lib/index.min.js"&gt;&lt;/script&gt;</code>
+        </pre>
+        <p>then you can use the customElement &lt;spread-sheet /&gt; in your HTML code.</p> 
+        <p>If you're using it in a Vue.js project, you can pass proper props columns and data into customElement such as &lt;spread-sheet :columns="columns" :data="rows"/&gt; Then your spreadsheet will come into view.</p>  
+        <p>The columns and data props look like the code on the left←</p>
+        <h2>FEATURES</h2>
+        <ul>
+          <li>cell type: input, select, multi-select, image, date, time (depends on columns array)</li>
+          <li>when the row data changed, it will automaticly emit a "change" event, so you can handle the newest row data</li>
+          <li>validator / formatter / computed functions can be added in column.params object</li>
+          <li>log at most 20 change history in memory, so you can press ctrl+Z/Y to UNDO/REDO</li>
+          <li>right clicking the row head can call the context menu which can insert/delete the row</li>
+          <li>upload images and preview images</li>
+          <li>support sort by column</li>
+          <li>auto switch languages(CN or EN) depends on your &lt;html lang="___"&gt;&lt;/html&gt;</li>
+          <li>keypress behavior like Excel (arrows, escape, tab, delete, backspace etc)</li>
+          <li>pasted letters by ctrl+V will fill current highlighted input cell</li>
+          <li>for those non-modern browsers which don't support shadowDOM or customElement, you can use polyfill to let them support: just add a &lt;script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2.5.0/webcomponents-bundle.min.js"&gt;&lt;/script&gt; in &lt;head&gt;</li>
+        </ul>
+        <h2>TODO</h2>
+        <ul>
+          <li>column actions such as insert/delete column</li>
+          <li>...</li>
+        </ul>
+      </div>
+    </div> -->
+  <script class="real-code">
+    window.onload = function () {
+      window.addEventListener('change', function (e) {
+        console.log(e.detail);
+      });
+    };
+  </script>
+  <!-- <script>
+      (function () {
+        var code = document.querySelector('script.real-code').outerHTML.replace(' class="real-code"', '');
+        document.querySelector('pre.main code').innerText = code;
+        hljs.highlightAll();
+      })();
+    </script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?0d1b0215955c5575760e02bbb08daf00";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script> -->
+</body>
+
+</html>
