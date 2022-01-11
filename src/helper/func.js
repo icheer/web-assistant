@@ -1,3 +1,18 @@
+export const $ = sel => document.querySelector(sel);
+
+export const $$ = sel => [...document.querySelectorAll(sel)];
+
+export const $ce = (tag, attrs = {}) => {
+  const el = document.createElement(tag);
+  for (let key in attrs) {
+    const val = attrs[key];
+    el.setAttribute(key, val);
+  }
+  return el;
+}
+
+export const noop = () => null;
+
 export const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
 export const copy = json => JSON.parse(JSON.stringify(json));

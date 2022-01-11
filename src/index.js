@@ -1,5 +1,3 @@
-(function (window) {
-  if (!window) return;
-})(window);
+export { webAssistant } from './app.js';
 
 export { default as default } from './app.svelte';

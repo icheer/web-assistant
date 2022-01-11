@@ -191,7 +191,7 @@
     <a href="https://github.com/icheer/web-assistant" target="_blank">Github</a>
   </h1>
   <div class="card">
-    <web-assistant />
+    <!-- <web-assistant /> -->
   </div>
   <!-- <div class="wrap">
       <pre class="main">
@@ -249,6 +249,32 @@
     window.onload = function () {
       window.addEventListener('change', function (e) {
         console.log(e.detail);
+      });
+      window.webAssistant.intro({
+        title: '1.20版本新特性',
+        list: [
+          {
+            id: 0,
+            text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。\n这是第二行文字.'
+          },
+          {
+            id: 1,
+            text: '这是第1行文字;\n抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。'
+          },
+          {
+            id: 2,
+            text: '这是<b>一段</b>富文本<img src="https://news-bos.cdn.bcebos.com/mvideo/log-news.png" alt="baidu" style="height: 36px" />'
+          }
+        ],
+        dangerouslyUseHTMLString: true,
+        canClose: true,
+        onClose: () => console.log('closed'),
+        confirmText: '我知道了',
+        onConfirm: () => console.log('confirmed'),
+        style: {
+          width: '50vw',
+          height: '30vh'
+        }
       });
     };
   </script>

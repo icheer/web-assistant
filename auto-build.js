@@ -2,26 +2,23 @@ let fs = require('fs');
 let cp = require('child_process');
 let isBuilding = false;
 
-function build() {
+function build(fileName) {
   if (isBuilding) return;
   isBuilding = true;
   const date = new Date();
-  console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} Building...`);
+  console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} - ${fileName} has changed, building now... ^_^`);
   cp.exec('npm run build', err => {
-    if (err) return console.log(err);
+    setTimeout(() => {
+      isBuilding = false;
+    }, 300);
+    if (err) return console.error(err);
     console.log('DONE!');
   });
-  setTimeout(() => {
-    isBuilding = false;
-  }, 1000);
 }
 
-fs.watch('./src/', (evt, fileName) => {
-  build();
+console.log('watching file\'s change...');
+fs.watch('./src/', { recursive: true }, (evt, fileName) => {
+  build(fileName);
 });
-fs.watch('./src/components/', (evt, fileName) => {
-  build();
-});
-fs.watch('./src/store/', (evt, fileName) => {
-  build();
-});
+
+build('*');
