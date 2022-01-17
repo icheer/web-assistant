@@ -1,8 +1,8 @@
-export const $ = sel => document.querySelector(sel);
+export const sel = sel => document.querySelector(sel);
 
-export const $$ = sel => [...document.querySelectorAll(sel)];
+export const selAll = sel => [...document.querySelectorAll(sel)];
 
-export const $ce = (tag, attrs = {}) => {
+export const CE = (tag, attrs = {}) => {
   const el = document.createElement(tag);
   for (let key in attrs) {
     const val = attrs[key];
@@ -12,6 +12,8 @@ export const $ce = (tag, attrs = {}) => {
 }
 
 export const noop = () => null;
+
+export const nope = () => false;
 
 export const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 

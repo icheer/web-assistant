@@ -1,16 +1,16 @@
-import { $, $ce } from '@/helper/func';
+import { sel, CE } from '@/helper/func';
 import { isShowIntro, isShowGuide, isShowFeedback, setIntroParams, setGuideParams, setFeedbackParams } from '@/store/store';
 (function (window) {
   if (!window) return;
   if (window.webAssistant) return;
-  const checkIfHasComp = () => !!$('body web-assistant');
+  const checkIfHasComp = () => !!sel('body web-assistant');
   if (checkIfHasComp()) return console.error('already have a <web-assistant /> in html');
 
   window.webAssistant = {
     // insert web component
     init() {
       if (checkIfHasComp()) return;
-      const comp = $ce('web-assistant');
+      const comp = CE('web-assistant');
       document.body.appendChild(comp);
     },
     // show introduction modal

@@ -17,7 +17,8 @@ export const setIntroParams = function (payload) {
     title: 'Intro',
     list: [],
     dangerouslyUseHTMLString: false,
-    showClose: false,
+    showSteps: false,
+    canClose: false,
     onClose: noop,
     prevText: _t('prev'),
     nextText: _t('next'),
@@ -29,6 +30,19 @@ export const setIntroParams = function (payload) {
   introParams.set(params);
 }
 
-export const setGuideParams = function (payload) { }
+export const setGuideParams = function (payload) {
+  let params = {
+    list: [],
+    showSteps: false,
+    canSkip: false,
+    onSkip: noop,
+    prevText: _t('prev'),
+    nextText: _t('next'),
+    confirmText: _t('confirm'),
+    onConfirm: noop
+  };
+  params = Object.assign(params, payload);
+  guideParams.set(params);
+}
 
 export const setFeedbackParams = function (payload) { }

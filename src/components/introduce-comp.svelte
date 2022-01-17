@@ -6,24 +6,33 @@
       +if("canClose")
         .close(title="{_t('close')}" on:click="{closeHandler}") ✖
     .body.scrollbar
-      +if("!isHtml")
-        .content {currentText}
-      +if("isHtml")
-        .content {@html currentText}
+      +each("list as item, index (index)")
+        +if("idx === index")
+          .content(in:fly="{transitionInParams}" out:fly="{transitionOutParams}")
+            +if("!isHtml")
+              div {item.text || ''}
+            +if("isHtml")
+              div {@html item.text || ''}
     .footer
       +if("canPrev")
-        .btn.prev(on:click="{prevHandler}") {prevText}
+        .btn.prev(on:click="{prevHandler}" class:disabled="{btnDisabled}") {prevText}
       +if("canNext")
-        .btn.next(on:click="{nextHandler}") {nextText}
+        .btn.next(on:click="{nextHandler}" class:disabled="{btnDisabled}")
+          span {nextText}
+          +if("showSteps")
+            span &nbsp;({idx + 1}/{list.length})
       +if("canConfirm")
-        .btn.confirm(on:click="{confirmHandler}") {confirmText}
+        .btn.confirm(on:click="{confirmHandler}" class:disabled="{btnDisabled}") {confirmText}
 </template>
 
 <script>
   import _t from '@/helper/i18n';
+  import { fly } from 'svelte/transition';
   import { get, isShowIntro, introParams } from '@/store/store';
 
   let idx = 0;
+  let lastIdx = -1;
+  let btnDisabled = false;
   let style = '';
 
   $: params = get(introParams);
@@ -31,17 +40,24 @@
   $: title = getAttr('title', 'Intro');
   $: onClose = getAttr('onClose');
   $: list = getAttr('list', []);
+  $: showSteps = getAttr('showSteps');
   $: isHtml = getAttr('dangerouslyUseHTMLString');
   $: prevText = getAttr('prevText');
   $: nextText = getAttr('nextText');
   $: confirmText = getAttr('confirmText');
   $: onConfirm = getAttr('onConfirm');
 
-  $: currentItem = list[idx] || {};
-  $: currentId = currentItem.id;
-  $: currentText = currentItem.text || '';
   $: canPrev = idx > 0;
   $: canNext = idx < list.length - 1;
+  $: transitionInParams = {
+    x: idx >= lastIdx ? 300 : -300,
+    duration: 300,
+    delay: 150
+  };
+  $: transitionOutParams = {
+    x: idx >= lastIdx ? -300 : 300,
+    duration: 300
+  };
   $: canConfirm = idx === list.length - 1;
   $: {
     const {
@@ -52,7 +68,7 @@
     style = `width: ${width}; height: ${height}; top: ${top}`;
   }
 
-  function getAttr(name, defaultValue = true) {
+  function getAttr(name, defaultValue) {
     const val = params[name];
     return val !== undefined ? val : defaultValue;
   }
@@ -63,15 +79,33 @@
   }
 
   function prevHandler() {
+    if (btnDisabled) return;
+    lockBtn(500);
     idx--;
+    setTimeout(() => {
+      lastIdx = idx;
+    }, 0);
   }
 
   function nextHandler() {
+    if (btnDisabled) return;
+    lockBtn(500);
     idx++;
+    setTimeout(() => {
+      lastIdx = idx;
+    }, 0);
   }
 
   function confirmHandler() {
+    if (btnDisabled) return;
     onConfirm();
+  }
+
+  function lockBtn(time = 300) {
+    btnDisabled = true;
+    setTimeout(() => {
+      btnDisabled = false;
+    }, time);
   }
 </script>
 
@@ -134,6 +168,7 @@
       overflow-x: hidden;
       overflow-y: auto;
       .content {
+        position: absolute;
         line-height: 1.5;
         white-space: pre-wrap;
         text-align: justify;
@@ -145,7 +180,7 @@
       user-select: none;
       .btn {
         text-align: center;
-        min-width: 56px;
+        min-width: 60px;
         height: 18px;
         line-height: 18px;
         padding: 6px 12px;
@@ -155,8 +190,12 @@
         font-size: 14px;
         cursor: pointer;
         border-radius: 3px;
+        transition: all 0.15s;
         & + .btn {
           margin-left: 16px;
+        }
+        &.disabled {
+          opacity: 0.5;
         }
         &.prev {
           background-color: #eee;
