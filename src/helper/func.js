@@ -53,21 +53,6 @@ export const dispatchEvent = (e, params) => {
   e.target.dispatchEvent(event);
 };
 
-export function simulateMouseDown(element) {
-  // 无效....
-  // pc端仅兼容UC,苹果...移动端支持安卓IOS微信钉钉.
-  if (document.createEvent) {
-    console.log(111);
-    //element.focus();
-    var e = document.createEvent('MouseEvents');
-    e.initMouseEvent('mousedown', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-    element.dispatchEvent(e);
-  } else if (elem.fireEvent) {
-    console.log(222);
-    element.fireEvent('onmousedown');
-  }
-}
-
 // 判断是否中文页面
 export function checkIfCn() {
   const lang = document.querySelector('html').getAttribute('lang') || '';

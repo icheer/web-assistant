@@ -1,9 +1,5 @@
-let lang = document.querySelector('html').getAttribute('lang');
-if (/^zh/i.test(lang)) {
-  lang = 'cn';
-} else {
-  lang = 'en';
-}
+import { checkIfCn } from '@/helper/func';
+const lang = checkIfCn() ? 'cn' : 'en';
 
 const dict = {
   cn: {

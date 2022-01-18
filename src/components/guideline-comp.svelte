@@ -1,20 +1,23 @@
 <template lang="pug">
   svelte:options(tag="guideline-comp")
-  img.img(src="{current.src}" alt="" style="{currentImageStyle}" draggable="false")
-  .popper
-    span {current.text}
+  +if("current.selector")
+    div(transition:fade="{{duration: 150}}")
+      img.img(src="{current.imgSrc}" alt="" style="{currentImageStyle}" draggable="false")
+      .popper(style="{currentPopperStyle}")
+        span {current.text || ''}
 </template>
 
 <script>
   import 'html2canvas';
   import { onMount } from 'svelte';
-  import { fly } from 'svelte/transition';
+  import { fade } from 'svelte/transition';
   import { get, isShowGuide, guideParams } from '@/store/store';
   import { sel, copy, sleep } from '@/helper/func';
 
   let idx = 0;
   let current = {};
   let currentImageStyle = '';
+  let currentPopperStyle = '';
 
   $: params = get(guideParams);
   $: list = getAttr('list');
@@ -26,10 +29,16 @@
   $: confirmText = getAttr('confirmText');
   $: onConfirm = getAttr('onConfirm');
 
+  // 截图的style
   $: {
-    const style = current.img || {};
-    const styleList = Object.keys(style).map(key => `${key}:${style[key]}px`);
+    const style = current.imgStyle || {};
+    const styleList = Object.keys(style).map(key => `${key}:${key==='width'?'auto':style[key]}px`);
     currentImageStyle = styleList.join(';');
+  }
+  // 气泡的style
+  $: {
+    const { width = 'auto', maxWidth = 'auto' } = current;
+    currentPopperStyle = `width:${width};max-width:${maxWidth}`;
   }
 
   onMount(() => {
@@ -46,9 +55,10 @@
     isShowGuide.set(false);
   }
 
-  async function process(index) {
-    idx = index;
-    const item = list[index];
+  // get DOM by index, and take a screenshot for it
+  async function process(i) {
+    idx = i;
+    const item = list[i];
     const { selector } = item;
     const dom = sel(selector);
     if (!dom) {
@@ -56,12 +66,10 @@
       return hide();
     }
     dom.scrollIntoViewIfNeeded();
-    await sleep(0);
-    const { top, left, width, height } = dom.getBoundingClientRect();
     const canvas = await html2canvas(dom, { allowTaint: true, useCORS: true });
-    const src = canvas.toDataURL('image/png');
-    current = { ...item, src, img: { top, left, width, height } };
-    console.log(current);
+    const imgSrc = canvas.toDataURL('image/png');
+    const { top, left, width, height } = dom.getBoundingClientRect();
+    current = { ...item, imgSrc, imgStyle: { top, left, width, height } };
   }
 
   function getAttr(name, defaultValue) {
@@ -76,5 +84,12 @@
     user-select: none;
     cursor: default;
     // pointer-events: none;
+  }
+  .popper {
+    padding: 10px;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 4px;
+    text-align: justify;
   }
 </style>
