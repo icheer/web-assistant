@@ -3,7 +3,7 @@
   +if("current.selector")
     div(transition:fade="{{duration: 150}}")
       +if("!isBusy")
-        img.img(src="{current.imgSrc}" alt="" style="{currentImageStyle}" draggable="false" transition:fade="{{duration: 150}}")
+        img.img(src="{current.imgSrc}" alt="" style="{currentImageStyle}" draggable="false")
       +if("!isBusy")
         .popper(bind:this="{popperElement}" class="{current.position || 'bottom'}" style="{currentPopperStyle}")
           span.pre {current.text || ''}
@@ -148,6 +148,7 @@
     current = {};
     const canvas = await html2canvas(dom, { allowTaint: true, useCORS: true });
     const imgSrc = canvas.toDataURL('image/png');
+    console.log(imgSrc.length);
     const { top, left, width, height } = dom.getBoundingClientRect();
     current = { ...item, imgSrc, imgStyle: { top, left, width, height } };
   }
