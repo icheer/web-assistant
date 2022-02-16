@@ -145,6 +145,7 @@
       return hide();
     }
     dom.scrollIntoViewIfNeeded();
+    current = {};
     const canvas = await html2canvas(dom, { allowTaint: true, useCORS: true });
     const imgSrc = canvas.toDataURL('image/png');
     const { top, left, width, height } = dom.getBoundingClientRect();
