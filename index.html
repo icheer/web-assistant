@@ -182,6 +182,92 @@
       word-wrap: break-word;
     }
   </style>
+  <script class="real-code">
+    window.onload = function () {
+      window.addEventListener('change', function (e) {
+        console.log(e.detail);
+      });
+      window.startGuideline = function () {
+        window.webAssistant.guideline({
+          list: [
+            {
+              selector: 'table',
+              position: 'bottom-end',
+              text: '释义:\n抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。',
+              maxWidth: '380px',
+              onNext: () => console.log('next')
+            },
+            {
+              selector: '.txt-inline',
+              position: 'top-end',
+              text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。',
+              maxWidth: '380px',
+              onPrev: () => console.log('prev')
+            },
+            {
+              selector: '.btn',
+              position: 'right',
+              text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。'
+            },
+            {
+              selector: '.btn2',
+              position: 'top-start',
+              text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。'
+            }
+          ],
+          canSkip: true,
+          showSteps: true,
+          comfirmText: '我已阅读并遵守',
+          onConfirm: () => console.log('confirmed')
+        });
+      }
+      window.startIntroduction = function () {
+        window.webAssistant.intro({
+          title: '1.20版本新特性',
+          list: [
+            {
+              id: 0,
+              text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。\n这是第二行文字.'
+            },
+            {
+              id: 1,
+              text: '这是第1行文字;\n抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。'
+            },
+            {
+              id: 2,
+              text: '这是<b>一段</b>富文本<img src="https://news-bos.cdn.bcebos.com/mvideo/log-news.png" alt="baidu" style="height: 36px" />'
+            }
+          ],
+          dangerouslyUseHTMLString: true,
+          showSteps: true,
+          canClose: true,
+          onClose: () => console.log('closed'),
+          confirmText: '我知道了',
+          onConfirm: () => console.log('confirmed'),
+          style: {
+            width: '50vw',
+            height: '40vh'
+          }
+        });
+      }
+    };
+  </script>
+  <!-- <script>
+      (function () {
+        var code = document.querySelector('script.real-code').outerHTML.replace(' class="real-code"', '');
+        document.querySelector('pre.main code').innerText = code;
+        hljs.highlightAll();
+      })();
+    </script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?0d1b0215955c5575760e02bbb08daf00";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script> -->
 </head>
 
 <body>
@@ -190,7 +276,9 @@
     <a href="https://github.com/icheer/web-assistant" target="_blank">Github</a>
   </h1>
   <div class="card" style="padding: 25px">
-    <table class="table" style="margin-left: 300px; border: 1px solid #eee">
+    <button onclick="javascript:window.startIntroduction()">Start introduction</button>
+    <button onclick="javascript:window.startGuideline()">Start guideline</button>
+    <table class="table" style="margin-left: 300px; margin-top: 50px; padding: 20px; border: 1px solid #eee">
       <thead>
         <tr>
           <th>Col1</th>
@@ -322,80 +410,6 @@
         </ul>
       </div>
     </div> -->
-  <script class="real-code">
-    window.onload = function () {
-      window.addEventListener('change', function (e) {
-        console.log(e.detail);
-      });
-      window.webAssistant.guideline({
-        list: [
-          {
-            selector: '.txt-inline',
-            position: 'bottom-end',
-            text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。',
-            maxWidth: '180px'
-          },
-          {
-            selector: '.btn',
-            position: 'bottom-start',
-            text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。'
-          },
-          {
-            selector: '.btn2',
-            position: 'top-center',
-            text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。'
-          }
-        ],
-        showSteps: true,
-        comfirmText: '我已阅读并遵守',
-        onConfirm: () => console.log('confirmed')
-      });
-      return;
-      window.webAssistant.intro({
-        title: '1.20版本新特性',
-        list: [
-          {
-            id: 0,
-            text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。\n这是第二行文字.'
-          },
-          {
-            id: 1,
-            text: '这是第1行文字;\n抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。 不同于接口，抽象类可以包含成员的实现细节。 abstract关键字是用于定义抽象类和在抽象类内部定义抽象方法。'
-          },
-          {
-            id: 2,
-            text: '这是<b>一段</b>富文本<img src="https://news-bos.cdn.bcebos.com/mvideo/log-news.png" alt="baidu" style="height: 36px" />'
-          }
-        ],
-        dangerouslyUseHTMLString: true,
-        showSteps: true,
-        canClose: true,
-        onClose: () => console.log('closed'),
-        confirmText: '我知道了',
-        onConfirm: () => console.log('confirmed'),
-        style: {
-          width: '50vw',
-          height: '40vh'
-        }
-      });
-    };
-  </script>
-  <!-- <script>
-      (function () {
-        var code = document.querySelector('script.real-code').outerHTML.replace(' class="real-code"', '');
-        document.querySelector('pre.main code').innerText = code;
-        hljs.highlightAll();
-      })();
-    </script>
-    <script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?0d1b0215955c5575760e02bbb08daf00";
-        var s = document.getElementsByTagName("script")[0]; 
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script> -->
 </body>
 
 </html>

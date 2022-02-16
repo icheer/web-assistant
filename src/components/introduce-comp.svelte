@@ -98,6 +98,7 @@
 
   function confirmHandler() {
     if (btnDisabled) return;
+    $isShowIntro = false;
     onConfirm();
   }
 
@@ -179,7 +180,6 @@
       justify-content: flex-end;
       user-select: none;
       .btn {
-        text-align: center;
         min-width: 60px;
         height: 18px;
         line-height: 18px;
@@ -187,7 +187,9 @@
         box-sizing: content-box;
         background-color: #409eff;
         color: #fff;
+        text-align: center;
         font-size: 14px;
+        user-select: none;
         cursor: pointer;
         border-radius: 3px;
         transition: all 0.15s;

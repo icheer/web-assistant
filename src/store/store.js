@@ -12,6 +12,12 @@ export const introParams = writable({});
 export const guideParams = writable({});
 export const feedbackParams = writable({});
 
+export const clear = function() {
+  isShowIntro.set(false);
+  isShowGuide.set(false);
+  isShowFeedback.set(false);
+}
+
 export const setIntroParams = function (payload) {
   let params = {
     title: 'Intro',
@@ -36,10 +42,12 @@ export const setGuideParams = function (payload) {
     showSteps: false,
     canSkip: false,
     onSkip: noop,
+    skipText: _t('skip'),
     prevText: _t('prev'),
     nextText: _t('next'),
     confirmText: _t('confirm'),
-    onConfirm: noop
+    onConfirm: noop,
+    popperStyle: ''
   };
   params = Object.assign(params, payload);
   guideParams.set(params);

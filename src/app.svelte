@@ -1,7 +1,7 @@
 <template lang="pug">
   svelte:options(tag="web-assistant")
   +if("isShowMask")
-    .web-assistant-mask(transition:fade="{{duration: 150}}")
+    .web-assistant-mask
       +if("$isShowIntro")
         introduce-comp
       +if("$isShowGuide")
@@ -12,7 +12,6 @@
   import '_/introduce-comp.svelte';
   import '_/guideline-comp.svelte';
   import { onMount, tick } from 'svelte';
-  import { fade } from 'svelte/transition';
   import { isShowIntro, isShowGuide } from '@/store/store';
   import { sleep, copy, genRandId, dispatchEvent } from '@/helper/func';
 
