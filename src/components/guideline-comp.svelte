@@ -27,7 +27,7 @@
   import 'html2canvas';
   import { onMount, tick } from 'svelte';
   import { fade } from 'svelte/transition';
-  import { get, isShowGuide, guideParams } from '@/store/store';
+  import { get, isShowGuide, guideParams, clear } from '@/store/store';
   import { sel, copy, sleep, noop } from '@/helper/func';
 
   let idx = 0;
@@ -40,7 +40,7 @@
   $: params = get(guideParams);
   $: list = getAttr('list');
   $: showSteps = getAttr('showSteps');
-  $: canPrev = idx > 0;
+  $: canPrev = idx > 0 && getAttr('canPrev');
   $: canNext = idx < list.length - 1;
   $: canSkip = getAttr('canSkip');
   $: onSkip = getAttr('onSkip');
@@ -126,12 +126,8 @@
 
   function init() {
     const firstItem = list[0];
-    if (!firstItem) return hide();
+    if (!firstItem) return clear();
     process(0);
-  }
-
-  function hide() {
-    $isShowGuide = false;
   }
 
   // get DOM by index, and take a screenshot for it
@@ -142,13 +138,12 @@
     const dom = sel(selector);
     if (!dom) {
       console.error(`cannot find dom: ${selector}`);
-      return hide();
+      return clear();
     }
     dom.scrollIntoViewIfNeeded();
     current = {};
     const canvas = await html2canvas(dom, { allowTaint: true, useCORS: true });
     const imgSrc = canvas.toDataURL('image/png');
-    console.log(imgSrc.length);
     const { top, left, width, height } = dom.getBoundingClientRect();
     current = { ...item, imgSrc, imgStyle: { top, left, width, height } };
   }
@@ -162,8 +157,8 @@
     const { onPrev = noop } = current;
     isBusy = true;
     await sleep(0);
-    await process(--idx);
     await onPrev();
+    await process(--idx);
     await sleep(0);
     isBusy = false;
   }
@@ -172,19 +167,19 @@
     const { onNext = noop } = current;
     isBusy = true;
     await sleep(0);
-    await process(++idx);
     await onNext();
+    await process(++idx);
     await sleep(0);
     isBusy = false;
   }
 
   function confirmHandler() {
-    hide();
+    clear();
     onConfirm();
   }
 
   function skipHandler() {
-    hide();
+    clear();
     onSkip();
   }
 </script>
@@ -204,6 +199,7 @@
     border-radius: 4px;
     text-align: justify;
     font-size: 15px;
+    line-height: 1.5;
     transition: all 0.15s;
     &:after {
       position: absolute;
@@ -280,7 +276,7 @@
       justify-content: space-between;
       align-items: center;
       font-size: 14px;
-      margin-top: 12px;
+      margin-top: 16px;
       &.disabled {
         .btn {
           opacity: 0;

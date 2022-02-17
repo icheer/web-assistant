@@ -28,7 +28,7 @@
 <script>
   import _t from '@/helper/i18n';
   import { fly } from 'svelte/transition';
-  import { get, isShowIntro, introParams } from '@/store/store';
+  import { get, isShowIntro, introParams, clear } from '@/store/store';
 
   let idx = 0;
   let lastIdx = -1;
@@ -73,8 +73,12 @@
     return val !== undefined ? val : defaultValue;
   }
 
+  function terminate() {
+    clear();
+  }
+
   function closeHandler() {
-    $isShowIntro = false;
+    clear();
     onClose();
   }
 
@@ -98,7 +102,7 @@
 
   function confirmHandler() {
     if (btnDisabled) return;
-    $isShowIntro = false;
+    clear();
     onConfirm();
   }
 

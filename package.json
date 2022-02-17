@@ -38,7 +38,7 @@
     "lib"
   ],
   "description": "A simple web component built with svelte, providing version introduction & guidline instruction ui.",
-  "version": "1.0.3",
+  "version": "1.0.9",
   "author": "icheer@live.com",
   "license": "MIT",
   "dependencies": {

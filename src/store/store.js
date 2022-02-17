@@ -4,6 +4,8 @@ import { tick } from 'svelte';
 import { noop } from '@/helper/func';
 import _t from '@/helper/i18n';
 
+export const isShowMask = writable(false);
+
 export const isShowIntro = writable(false);
 export const isShowGuide = writable(false);
 export const isShowFeedback = writable(false);
@@ -16,6 +18,7 @@ export const clear = function() {
   isShowIntro.set(false);
   isShowGuide.set(false);
   isShowFeedback.set(false);
+  isShowMask.set(false);
 }
 
 export const setIntroParams = function (payload) {
@@ -43,6 +46,7 @@ export const setGuideParams = function (payload) {
     canSkip: false,
     onSkip: noop,
     skipText: _t('skip'),
+    canPrev: true,
     prevText: _t('prev'),
     nextText: _t('next'),
     confirmText: _t('confirm'),

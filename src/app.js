@@ -1,5 +1,5 @@
 import { sel, CE } from '@/helper/func';
-import { isShowIntro, isShowGuide, isShowFeedback, setIntroParams, setGuideParams, setFeedbackParams } from '@/store/store';
+import { isShowMask, isShowIntro, isShowGuide, isShowFeedback, setIntroParams, setGuideParams, setFeedbackParams } from '@/store/store';
 (function (window) {
   if (!window) return;
   if (window.webAssistant) return;
@@ -12,6 +12,11 @@ import { isShowIntro, isShowGuide, isShowFeedback, setIntroParams, setGuideParam
       if (checkIfHasComp()) return;
       const comp = CE('web-assistant');
       document.body.appendChild(comp);
+    },
+    // show mask
+    mask() {
+      this.init();
+      isShowMask.set(true);
     },
     // show introduction modal
     intro(payload) {
