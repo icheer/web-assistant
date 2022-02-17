@@ -1,5 +1,5 @@
 import { sel, CE } from '@/helper/func';
-import { isShowMask, isShowIntro, isShowGuide, isShowFeedback, setIntroParams, setGuideParams, setFeedbackParams } from '@/store/store';
+import { isShowMask, isShowIntro, isShowGuide, isShowFeedback, setIntroParams, setGuideParams, setFeedbackParams, clear } from '@/store/store';
 (function (window) {
   if (!window) return;
   if (window.webAssistant) return;
@@ -12,6 +12,11 @@ import { isShowMask, isShowIntro, isShowGuide, isShowFeedback, setIntroParams, s
       if (checkIfHasComp()) return;
       const comp = CE('web-assistant');
       document.body.appendChild(comp);
+      window.addEventListener('keyup', e => {
+        if (e.key === 'Escape') {
+          clear();
+        }
+      });
     },
     // show mask
     mask() {
