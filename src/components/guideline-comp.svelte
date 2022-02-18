@@ -301,9 +301,6 @@
         & + .btn {
           margin-left: 16px;
         }
-        &.disabled {
-          opacity: 0.5;
-        }
         &.next,
         &.confirm {
           background-color: #409eff;
