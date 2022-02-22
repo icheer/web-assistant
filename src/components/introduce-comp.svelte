@@ -1,7 +1,7 @@
 <template lang="pug">
   svelte:options(tag="introduce-comp")
   +if("isShow")
-    mask-comp(transition:fade="{{duration: 150}}")
+    mask-comp(transition:fade="{{duration: transition ? 150 : 0}}")
       .modal({style})
         .header
           span.title {title}
@@ -42,6 +42,7 @@
   let style = '';
 
   $: params = get(introParams);
+  $: transition = getAttr('transition');
   $: canClose = getAttr('canClose');
   $: title = getAttr('title', 'Intro');
   $: onClose = getAttr('onClose');

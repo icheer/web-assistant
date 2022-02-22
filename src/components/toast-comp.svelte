@@ -22,7 +22,7 @@
 <style lang="less">
   .toast {
     position: fixed;
-    z-index: 9999;
+    // z-index: 9999;
     z-index: 999999;
     left: 50%;
     transform: translateX(-50%);

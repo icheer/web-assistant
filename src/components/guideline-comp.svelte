@@ -1,7 +1,8 @@
 <template lang="pug">
   svelte:options(tag="guideline-comp")
-  +if("isShow && current.selector")
-    mask-comp(transition:fade="{{duration: 150}}")
+  +if("isShow")
+    //- mask-comp(transition:fade="{{duration: transition ? 150 : 0}}")
+    mask-comp
       +if("!isBusy")
         img.img(src="{current.imgSrc}" alt="" style="{currentImageStyle}" draggable="false")
       +if("!isBusy")
@@ -43,6 +44,7 @@
   let isBusy = false;
 
   $: params = get(guideParams);
+  $: transition = getAttr('transition');
   $: list = getAttr('list');
   $: showSteps = getAttr('showSteps');
   $: isHtml = getAttr('dangerouslyUseHTMLString');
@@ -56,75 +58,6 @@
   $: confirmText = getAttr('confirmText');
   $: onConfirm = getAttr('onConfirm');
   $: popperStyle = getAttr('popperStyle');
-
-  // 截图的style
-  $: {
-    const style = current.imgStyle || {};
-    const styleList = Object.keys(style).map(
-      key => `${key}:${key === 'height' ? 'auto' : style[key] + 'px'}`
-    );
-    currentImageStyle = styleList.join(';');
-  }
-  // 气泡的style
-  $: {
-    const gap = 10;
-    const {
-      top: imgTop,
-      left: imgLeft,
-      width: imgWidth,
-      height: imgHeight
-    } = current.imgStyle || {};
-    let {
-      width: popperWidth = 'auto',
-      maxWidth: popperMaxWidth = 'auto',
-      position = 'bottom'
-    } = current;
-    currentPopperStyle = `width:${popperWidth};max-width:${popperMaxWidth};top:auto;left:auto;opacity:0;${popperStyle}`;
-    sleep(0).then(() => {
-      if (!popperElement) return;
-      const rect = popperElement.getBoundingClientRect();
-      let popperTop = 20;
-      let popperLeft = 20;
-      if (position === 'top-start') {
-        popperTop = imgTop - rect.height - gap;
-        popperLeft = imgLeft;
-      } else if (position === 'top-end') {
-        popperTop = imgTop - rect.height - gap;
-        popperLeft = imgLeft + imgWidth - rect.width;
-      } else if (position === 'top') {
-        popperTop = imgTop - rect.height - gap;
-        popperLeft = imgLeft + (imgWidth - rect.width) / 2;
-      } else if (position === 'left-start') {
-        popperTop = imgTop;
-        popperLeft = imgLeft - rect.width - gap;
-      } else if (position === 'left-end') {
-        popperTop = imgTop + imgHeight - rect.height;
-        popperLeft = imgLeft - rect.width - gap;
-      } else if (position === 'left') {
-        popperTop = imgTop + (imgHeight - rect.height) / 2;
-        popperLeft = imgLeft - rect.width - gap;
-      } else if (position === 'right-start') {
-        popperTop = imgTop;
-        popperLeft = imgLeft + imgWidth + gap;
-      } else if (position === 'right-end') {
-        popperTop = imgTop + imgHeight - rect.height;
-        popperLeft = imgLeft + imgWidth + gap;
-      } else if (position === 'right') {
-        popperTop = imgTop + (imgHeight - rect.height) / 2;
-        popperLeft = imgLeft + imgWidth + gap;
-      } else if (position === 'bottom-start') {
-        popperTop = imgTop + imgHeight + gap;
-        popperLeft = imgLeft;
-      } else if (position === 'bottom-end') {
-        popperTop = imgTop + imgHeight + gap;
-        popperLeft = imgLeft + imgWidth - rect.width;
-      } else if (position === 'bottom' || true) {
-        popperTop = imgTop + imgHeight + gap;
-        popperLeft = imgLeft + (imgWidth - rect.width) / 2;
-      }
-      currentPopperStyle = `width:${popperWidth};max-width:${popperMaxWidth};top:${popperTop}px;left:${popperLeft}px;${popperStyle}`;
-    });
-  }
 
   onMount(() => {
     init();
@@ -153,6 +86,81 @@
     const imgSrc = canvas.toDataURL('image/png');
     const { top, left, width, height } = dom.getBoundingClientRect();
     current = { ...item, imgSrc, imgStyle: { top, left, width, height } };
+    tick().then(() => {
+      renderImage();
+      renderPopper();
+    });
+  }
+
+  // 截图的style
+  function renderImage() {
+    const style = current.imgStyle || {};
+    const styleList = Object.keys(style).map(
+      key => `${key}:${key === 'height' ? 'auto' : style[key] + 'px'}`
+    );
+    currentImageStyle = styleList.join(';');
+  }
+
+  // 气泡的style
+  async function renderPopper() {
+    const gap = 10;
+    const {
+      top: imgTop,
+      left: imgLeft,
+      width: imgWidth,
+      height: imgHeight
+    } = current.imgStyle || {};
+    let {
+      width: popperWidth = 'auto',
+      maxWidth: popperMaxWidth = 'auto',
+      position = 'bottom'
+    } = current;
+    currentPopperStyle = `width:${popperWidth};max-width:${popperMaxWidth};top:auto;left:auto;opacity:0;${popperStyle}`;
+    await sleep(0);
+    if (!popperElement) return console.error('no popper element');
+    const rect = popperElement.getBoundingClientRect();
+    let popperTop = 20;
+    let popperLeft = 20;
+    if (position === 'top-start') {
+      popperTop = imgTop - rect.height - gap;
+      popperLeft = imgLeft;
+    } else if (position === 'top-end') {
+      popperTop = imgTop - rect.height - gap;
+      popperLeft = imgLeft + imgWidth - rect.width;
+    } else if (position === 'top') {
+      popperTop = imgTop - rect.height - gap;
+      popperLeft = imgLeft + (imgWidth - rect.width) / 2;
+    } else if (position === 'left-start') {
+      popperTop = imgTop;
+      popperLeft = imgLeft - rect.width - gap;
+    } else if (position === 'left-end') {
+      popperTop = imgTop + imgHeight - rect.height;
+      popperLeft = imgLeft - rect.width - gap;
+    } else if (position === 'left') {
+      popperTop = imgTop + (imgHeight - rect.height) / 2;
+      popperLeft = imgLeft - rect.width - gap;
+    } else if (position === 'right-start') {
+      popperTop = imgTop;
+      popperLeft = imgLeft + imgWidth + gap;
+    } else if (position === 'right-end') {
+      popperTop = imgTop + imgHeight - rect.height;
+      popperLeft = imgLeft + imgWidth + gap;
+    } else if (position === 'right') {
+      popperTop = imgTop + (imgHeight - rect.height) / 2;
+      popperLeft = imgLeft + imgWidth + gap;
+    } else if (position === 'bottom-start') {
+      popperTop = imgTop + imgHeight + gap;
+      popperLeft = imgLeft;
+    } else if (position === 'bottom-end') {
+      popperTop = imgTop + imgHeight + gap;
+      popperLeft = imgLeft + imgWidth - rect.width;
+    } else if (position === 'bottom' || true) {
+      popperTop = imgTop + imgHeight + gap;
+      popperLeft = imgLeft + (imgWidth - rect.width) / 2;
+    }
+    currentPopperStyle = `width:${popperWidth};max-width:${popperMaxWidth};top:${popperTop}px;left:${popperLeft}px;opacity:0;${popperStyle}`;
+    await sleep(0);
+    currentPopperStyle = `width:${popperWidth};max-width:${popperMaxWidth};top:${popperTop}px;left:${popperLeft}px;opacity:1;${popperStyle}`;
   }
 
   function getAttr(name, defaultValue) {
@@ -166,7 +174,6 @@
     await sleep(0);
     await onPrev();
     await process(--idx);
-    await sleep(0);
     isBusy = false;
   }
 
@@ -176,7 +183,6 @@
     await sleep(0);
     await onNext();
     await process(++idx);
-    await sleep(0);
     isBusy = false;
   }
 
@@ -208,7 +214,6 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
     z-index: 999999;
   }
   .img {
@@ -226,7 +231,8 @@
     text-align: justify;
     font-size: 15px;
     line-height: 1.5;
-    transition: all 0.15s;
+    // transition: all 0.15s;
+    opacity: 0;
     &:after {
       position: absolute;
       display: block;
@@ -295,6 +301,8 @@
   }
   .popper {
     .pre {
+      display: inline-block;
+      min-height: 1.5em;
       white-space: pre-wrap;
     }
     .btns {
@@ -305,7 +313,7 @@
       margin-top: 16px;
       &.disabled {
         .btn {
-          opacity: 0;
+          opacity: 0.5;
           pointer-events: none;
         }
       }

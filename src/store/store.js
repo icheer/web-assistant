@@ -79,6 +79,7 @@ export const setIntroParams = async payload => {
   await sleep(duration);
   let params = {
     title: 'Intro',
+    transition: true,
     list: [],
     dangerouslyUseHTMLString: false,
     showSteps: false,
@@ -93,12 +94,14 @@ export const setIntroParams = async payload => {
   params = Object.assign(params, payload);
   introParams.set(params);
   isShowIntro.set(true);
+  isShowMask.set(false);
 };
 
 export const setGuideParams = async payload => {
   await sleep(duration);
   let params = {
     list: [],
+    transition: true,
     showSteps: false,
     dangerouslyUseHTMLString: false,
     canClose: false,
@@ -114,6 +117,7 @@ export const setGuideParams = async payload => {
   params = Object.assign(params, payload);
   guideParams.set(params);
   isShowGuide.set(true);
+  isShowMask.set(false);
 };
 
 export const setFeedbackParams = async payload => { };
