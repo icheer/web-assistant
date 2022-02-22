@@ -11,13 +11,21 @@ export const CE = (tag, attrs = {}) => {
   return el;
 }
 
-export const noop = () => null;
+export const noop = () => undefined;
 
 export const nope = () => false;
 
 export const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
 export const copy = json => JSON.parse(JSON.stringify(json));
+
+// transfix.js
+export const transfix = transtion => {
+  return (node, params) => {
+    Object.defineProperty(node, 'ownerDocument', { get: function () { return { head: node.parentNode }; } });
+    return transtion(node, params)
+  }
+}
 
 export const genRandId = () => {
   const prefix = (+new Date().toLocaleString().replace(/\D/g, '').replace(/^20/, '')).toString(16);

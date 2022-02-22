@@ -1,35 +1,41 @@
 <template lang="pug">
   svelte:options(tag="introduce-comp")
-  .modal({style})
-    .header
-      span.title {title}
-      +if("canClose")
-        .close(title="{_t('close')}" on:click="{closeHandler}") ✖
-    .body.scrollbar
-      +each("list as item, index (index)")
-        +if("idx === index")
-          .content(in:fly="{transitionInParams}" out:fly="{transitionOutParams}")
-            +if("!isHtml")
-              div {item.text || ''}
-            +if("isHtml")
-              div {@html item.text || ''}
-    .footer
-      +if("canPrev")
-        .btn.prev(on:click="{prevHandler}" class:disabled="{btnDisabled}") {prevText}
-      +if("canNext")
-        .btn.next(on:click="{nextHandler}" class:disabled="{btnDisabled}")
-          span {nextText}
-          +if("showSteps")
-            span &nbsp;({idx + 1}/{list.length})
-      +if("canConfirm")
-        .btn.confirm(on:click="{confirmHandler}" class:disabled="{btnDisabled}") {confirmText}
+  +if("isShow")
+    mask-comp(transition:fade="{{duration: 150}}")
+      .modal({style})
+        .header
+          span.title {title}
+          +if("canClose")
+            .close(title="{_t('close')}" on:click="{closeHandler}") ✖
+        .body.scrollbar
+          +each("list as item, index (index)")
+            +if("idx === index")
+              .content(in:fly="{transitionInParams}" out:fly="{transitionOutParams}")
+                +if("!isHtml")
+                  div {item.text || ''}
+                +if("isHtml")
+                  div {@html item.text || ''}
+        .footer
+          +if("canPrev")
+            .btn.prev(on:click="{prevHandler}" class:disabled="{btnDisabled}") {prevText}
+          +if("canNext")
+            .btn.next(on:click="{nextHandler}" class:disabled="{btnDisabled}")
+              span {nextText}
+              +if("showSteps")
+                span &nbsp;({idx + 1}/{list.length})
+          +if("canConfirm")
+            .btn.confirm(on:click="{confirmHandler}" class:disabled="{btnDisabled}") {confirmText}
 </template>
 
 <script>
+  import './mask-comp.svelte';
   import _t from '@/helper/i18n';
-  import { fly } from 'svelte/transition';
-  import { get, isShowIntro, introParams, clear } from '@/store/store';
+  import { fade, fly } from 'svelte/transition';
+  import { get, introParams, clear } from '@/store/store';
+  import { tick, onMount } from 'svelte';
+  import { sleep } from '@/helper/func';
 
+  let isShow = false;
   let idx = 0;
   let lastIdx = -1;
   let btnDisabled = false;
@@ -68,17 +74,26 @@
     style = `width: ${width}; height: ${height}; top: ${top}`;
   }
 
+  onMount(() => {
+    show();
+  });
+
   function getAttr(name, defaultValue) {
     const val = params[name];
     return val !== undefined ? val : defaultValue;
   }
 
-  function terminate() {
+  function show() {
+    isShow = true;
+  }
+
+  function hide() {
+    isShow = false;
     clear();
   }
 
   function closeHandler() {
-    clear();
+    hide();
     onClose();
   }
 
@@ -102,7 +117,7 @@
 
   function confirmHandler() {
     if (btnDisabled) return;
-    clear();
+    hide();
     onConfirm();
   }
 
@@ -121,12 +136,9 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    // top: 13vh;
     left: 0;
     right: 0;
     margin: 0 auto;
-    // width: 75vw;
-    // height: 60vh;
     padding: 12px 25px 16px;
     box-sizing: border-box;
     background-color: #fff;

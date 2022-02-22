@@ -1,36 +1,31 @@
 <template lang="pug">
   svelte:options(tag="web-assistant")
-  +if("isShow")
-    .web-assistant-mask
-      +if("$isShowIntro")
-        introduce-comp
-      +if("$isShowGuide")
-        guideline-comp
+  .web-assistant
+    +if("$isShowMask")
+      mask-comp
+    +if("$isShowIntro")
+      introduce-comp
+    +if("$isShowGuide")
+      guideline-comp
+    +if("$isExistToast")
+      toast-comp
 </template>
 
 <script>
   import '_/introduce-comp.svelte';
   import '_/guideline-comp.svelte';
+  import '_/toast-comp.svelte';
+  import '_/mask-comp.svelte';
   import { onMount, tick } from 'svelte';
-  import { isShowMask, isShowIntro, isShowGuide } from '@/store/store';
-  import { sleep, copy, genRandId, dispatchEvent } from '@/helper/func';
-
-  $: isShow = $isShowMask || $isShowIntro || $isShowGuide;
-
-  onMount(async () => {
-    return;
-  });
+  import { fade } from 'svelte/transition';
+  import {
+    isShowMask,
+    isShowToast,
+    isExistToast,
+    isShowIntro,
+    isShowGuide
+  } from '@/store/store';
 </script>
 
 <style lang="less">
-  .web-assistant-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    z-index: 999999;
-  }
 </style>

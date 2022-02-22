@@ -1,16 +1,19 @@
 <template lang="pug">
   svelte:options(tag="guideline-comp")
-  +if("current.selector")
-    div(transition:fade="{{duration: 150}}")
+  +if("isShow && current.selector")
+    mask-comp(transition:fade="{{duration: 150}}")
       +if("!isBusy")
         img.img(src="{current.imgSrc}" alt="" style="{currentImageStyle}" draggable="false")
       +if("!isBusy")
         .popper(bind:this="{popperElement}" class="{current.position || 'bottom'}" style="{currentPopperStyle}")
-          span.pre {current.text || ''}
+          +if("!isHtml")
+            span.pre {current.text || ''}
+          +if("isHtml")
+            span.pre {@html current.text || ''}
           .btns(class:disabled="{isBusy}")
             span
-              +if("canSkip && canNext")
-                .btn(on:click="{skipHandler}") {skipText}
+              +if("canClose && canNext")
+                .btn(on:click="{closeHandler}") {closeText}
             span
               +if("canPrev")
                 .btn(on:click="{prevHandler}") {prevText}
@@ -24,10 +27,11 @@
 </template>
 
 <script>
+  import './mask-comp.svelte';
   import 'html2canvas';
   import { onMount, tick } from 'svelte';
   import { fade } from 'svelte/transition';
-  import { get, isShowGuide, guideParams, clear } from '@/store/store';
+  import { get, guideParams, clear } from '@/store/store';
   import { sel, copy, sleep, noop } from '@/helper/func';
 
   let idx = 0;
@@ -35,16 +39,18 @@
   let currentImageStyle = '';
   let currentPopperStyle = '';
   let popperElement = null;
+  let isShow = false;
   let isBusy = false;
 
   $: params = get(guideParams);
   $: list = getAttr('list');
   $: showSteps = getAttr('showSteps');
+  $: isHtml = getAttr('dangerouslyUseHTMLString');
   $: canPrev = idx > 0 && getAttr('canPrev');
   $: canNext = idx < list.length - 1;
-  $: canSkip = getAttr('canSkip');
-  $: onSkip = getAttr('onSkip');
-  $: skipText = getAttr('skipText');
+  $: canClose = getAttr('canClose');
+  $: onClose = getAttr('onClose');
+  $: closeText = getAttr('closeText');
   $: prevText = getAttr('prevText');
   $: nextText = getAttr('nextText');
   $: confirmText = getAttr('confirmText');
@@ -126,7 +132,8 @@
 
   function init() {
     const firstItem = list[0];
-    if (!firstItem) return clear();
+    if (!firstItem) return hide();
+    show();
     process(0);
   }
 
@@ -138,7 +145,7 @@
     const dom = sel(selector);
     if (!dom) {
       console.error(`cannot find dom: ${selector}`);
-      return clear();
+      return hide();
     }
     dom.scrollIntoViewIfNeeded();
     current = {};
@@ -174,17 +181,36 @@
   }
 
   function confirmHandler() {
-    clear();
+    hide();
     onConfirm();
   }
 
-  function skipHandler() {
+  function closeHandler() {
+    hide();
+    onClose();
+  }
+
+  function show() {
+    isShow = true;
+  }
+
+  function hide() {
+    isShow = false;
     clear();
-    onSkip();
   }
 </script>
 
 <style lang="less">
+  .web-assistant-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    z-index: 999999;
+  }
   .img {
     position: absolute;
     user-select: none;

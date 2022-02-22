@@ -215,7 +215,7 @@
               text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。'
             }
           ],
-          canSkip: true,
+          canClose: true,
           showSteps: true,
           confirmText: '我已阅读并遵守',
           onConfirm: () => console.log('confirmed')
@@ -250,6 +250,11 @@
           }
         });
       }
+      window.showToast = function (flag) {
+        var text = flag === 1 ? 'Hello world!' : 'test message...';
+        var duration = flag === 1 ? 1800 : 3000;
+        window.webAssistant.toast({ text, duration });
+      }
     };
   </script>
   <!-- <script>
@@ -276,8 +281,12 @@
     <a href="https://github.com/icheer/web-assistant" target="_blank">Github</a>
   </h1>
   <div class="card" style="padding: 25px">
-    <button onclick="javascript:window.startIntroduction()">Start introduction</button>
-    <button onclick="javascript:window.startGuideline()">Start guideline</button>
+    <button onclick="startIntroduction()">Start introduction</button>
+    <button onclick="startGuideline()">Start guideline</button>
+    <br>
+    <br>
+    <button onclick="showToast(1)">Show Toast: 1</button>
+    <button onclick="showToast(2)">Show Toast: 2</button>
     <table class="table" style="margin-left: 300px; margin-top: 50px; padding: 20px; border: 1px solid #eee">
       <thead>
         <tr>

@@ -1,5 +1,5 @@
 import { sel, CE } from '@/helper/func';
-import { isShowMask, isShowIntro, isShowGuide, isShowFeedback, setIntroParams, setGuideParams, setFeedbackParams, clear } from '@/store/store';
+import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams, clear } from '@/store/store';
 (function (window) {
   if (!window) return;
   if (window.webAssistant) return;
@@ -21,28 +21,35 @@ import { isShowMask, isShowIntro, isShowGuide, isShowFeedback, setIntroParams, s
     // show mask
     mask() {
       this.init();
-      isShowMask.set(true);
+      showMask();
+    },
+    // show toast
+    toast(payload) {
+      this.init();
+      return showToast(payload);
+    },
+    // hide
+    clear() {
+      this.init();
+      clear();
     },
     // show introduction modal
     intro(payload) {
       this.init();
       if (!payload) return console.error('no params');
       setIntroParams(payload);
-      isShowIntro.set(true);
     },
     // show guideline
     guideline(payload) {
       this.init();
       if (!payload) return console.error('no params');
       setGuideParams(payload);
-      isShowGuide.set(true);
     },
     // show feedback
     feedback(payload) {
       this.init();
       if (!payload) return console.error('no params');
       setFeedbackParams(payload);
-      isShowFeedback.set(true);
     }
   };
 })(window);
