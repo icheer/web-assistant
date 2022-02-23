@@ -122,6 +122,8 @@ window.webAssistant.intro({
 | onPrev | Function called when going previous step | Function | noop |
 | onNext | Function called when going next step | Function | noop |
 
+---
+
 ### intro params:
 | Key | Description | Type | Default value |
 | ---- | ---- | ---- | ---- |
@@ -137,6 +139,10 @@ window.webAssistant.intro({
 | onConfirm | Function called after confirmed | Function | noop |
 | style | Style object that affects intro element | Object | {} |
 
+### *intro list item*:
+| Key | Description | Type | Default value |
+| ---- | ---- | ---- | ---- |
+| text | The intro content | String | - |
 
 ## TODO
 - [ ] feedback component
