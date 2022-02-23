@@ -9,7 +9,7 @@ A simple web component built with [svelte](https://github.com/sveltejs/svelte), 
 
 ## Live demo
 
-[https://guidebook.vercel.app](https://guidebook.vercel.app)
+<a href="https://guidebook.vercel.app" target="_blank">https://guidebook.vercel.app</a>
 
 ![screenshot](https://i.ibb.co/jyGnQ53/20220223181550.png)
 
