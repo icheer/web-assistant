@@ -148,6 +148,10 @@
       font-size: 18px;
     }
 
+    button.code {
+      color: #888;
+    }
+
     h1 {
       font-size: 20px;
       line-height: 50px;
@@ -354,20 +358,20 @@
   </h1>
   <div class="card" style="padding: 25px">
     <button onclick="startGuideline()">Start guideline</button>
-    <button onclick="getStr(startGuideline)">show code...</button>
+    <button class="code" onclick="getStr(startGuideline)">show code...</button>
     <br>
     <br>
     <button onclick="startIntroduction()">Start introduction</button>
-    <button onclick="getStr(startIntroduction)">show code...</button>
+    <button class="code" onclick="getStr(startIntroduction)">show code...</button>
     <br>
     <br>
     <button onclick="showMask()">Show mask</button>
-    <button onclick="getStr(showMask)">show code...</button>
+    <button class="code" onclick="getStr(showMask)">show code...</button>
     <br>
     <br>
     <button onclick="showToast1()">Show toast: 1</button>
     <button onclick="showToast2()">Show toast: 2</button>
-    <button onclick="getStr(showToast2)">show code...</button>
+    <button class="code" onclick="getStr(showToast2)">show code...</button>
     <table class="table"
       style="margin-left: 300px; margin-top: 50px; padding: 20px; border: 1px solid #eee; background-color: #fff;">
       <thead>
