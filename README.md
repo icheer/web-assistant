@@ -150,7 +150,7 @@ window.webAssistant.intro({
 ### mask parameters:
 | Key | Description | Type | Default value |
 | ---- | ---- | ---- | ---- |
-| duration | milliseconds.<br>empty or 0 means mask never dismiss | Number | - |
+| duration | milliseconds.<br>empty or 0 means mask never dismiss,<br>then you should call window.webAssistant.clear() to dismiss it manually. | Number | - |
 
 ### toast parameters:
 | Key | Description | Type | Default value |
