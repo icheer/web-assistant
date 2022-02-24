@@ -9,8 +9,6 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2.5.0/webcomponents-bundle.min.js"></script> -->
   <script type="module" src="./lib/index.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/web-assistant@latest/lib/index.min.js"></script> -->
-  <!-- <link rel="stylesheet" href="//cdn.bootcdn.net/ajax/libs/highlight.js/10.7.3/styles/default.min.css" />
-  <script src="//cdn.bootcdn.net/ajax/libs/highlight.js/10.7.3/highlight.min.js"></script> -->
   <style>
     .hljs-comment,
     .hljs-quote {
@@ -103,15 +101,50 @@
       overflow-y: hidden;
     }
 
+    .filter {
+      position: fixed;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #textarea {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto auto;
+      padding: 1em;
+      width: 50vw;
+      height: 50vh;
+      outline: none;
+    }
+
+    .btn-exec {
+      position: absolute;
+      z-index: 3;
+      bottom: 19vh;
+      left: 0;
+      right: 0;
+      width: 8em;
+      margin: 0 auto;
+      font-size: 18px;
+    }
+
     h1 {
-      font-size: 26px;
+      font-size: 20px;
       line-height: 50px;
       height: 50px;
       overflow: hidden;
       margin: 0;
-      padding: 5px 0;
+      padding: 5px 0 5px 20px;
       color: #333;
-      text-align: center;
+      text-align: left;
     }
 
     h1 a {
@@ -185,6 +218,9 @@
   </style>
   <script class="real-code">
     window.onload = function () {
+      var filter = document.querySelector('.filter');
+      var textarea = document.querySelector('#textarea');
+      var exec = document.querySelector('.btn-exec');
       window.addEventListener('change', function (e) {
         console.log(e.detail);
       });
@@ -194,7 +230,7 @@
             {
               selector: 'table',
               position: 'bottom-end',
-              text: '释义:\n抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。',
+              text: '<b>释义</b>:\n抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。',
               maxWidth: '380px',
               onNext: () => console.log('next')
             },
@@ -216,6 +252,7 @@
               text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。'
             }
           ],
+          dangerouslyUseHTMLString: true,
           canClose: true,
           showSteps: true,
           confirmText: '我已阅读并遵守',
@@ -251,43 +288,74 @@
           }
         });
       }
-      window.showToast = function (flag) {
-        var text = flag === 1 ? 'Hello world!' : 'test message...';
-        var duration = flag === 1 ? 1800 : 3000;
-        window.webAssistant.toast({ text, duration });
+      window.showToast1 = function () {
+        window.webAssistant.toast({ text: 'Hello world!', duration: 1800 });
+      }
+      window.showToast2 = function () {
+        window.webAssistant.toast({ text: 'test message...', duration: 3000 });
+      }
+      window.showMask = function () {
+        window.webAssistant.mask();
+        setTimeout(() => {
+          window.webAssistant.clear();
+        }, 1500);
+      }
+      window.getStr = function (func) {
+        var str = func.toString();
+        str = str.replace(/^function \(\S*\) \{/, '').replace(/\}$/, '').replace(/        /g, '').trim();
+        filter.style = 'display: block';
+        textarea.value = str;
+      }
+      window.hideFilter = function () {
+        filter.style = 'display: none';
+      }
+      textarea.onclick = function (e) {
+        e.stopPropagation();
+      }
+      exec.onclick = function (e) {
+        e.stopPropagation();
+        window.hideFilter();
+        var str = textarea.value;
+        eval(str);
       }
     };
   </script>
-  <!-- <script>
-      (function () {
-        var code = document.querySelector('script.real-code').outerHTML.replace(' class="real-code"', '');
-        document.querySelector('pre.main code').innerText = code;
-        hljs.highlightAll();
-      })();
-    </script>
-    <script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?0d1b0215955c5575760e02bbb08daf00";
-        var s = document.getElementsByTagName("script")[0]; 
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0d1b0215955c5575760e02bbb08daf00";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 </head>
 
 <body>
+  <div class="filter" style="display: none;" onclick="hideFilter()">
+    <textarea id="textarea" cols="30" rows="10"></textarea>
+    <button class="btn-exec">execute</button>
+  </div>
   <h1>
     <span>web-assistant live demo</span>
     <a href="https://github.com/icheer/web-assistant" target="_blank">Github</a>
   </h1>
   <div class="card" style="padding: 25px">
-    <button onclick="startIntroduction()">Start introduction</button>
     <button onclick="startGuideline()">Start guideline</button>
+    <button onclick="getStr(startGuideline)">show code...</button>
     <br>
     <br>
-    <button onclick="showToast(1)">Show Toast: 1</button>
-    <button onclick="showToast(2)">Show Toast: 2</button>
+    <button onclick="startIntroduction()">Start introduction</button>
+    <button onclick="getStr(startIntroduction)">show code...</button>
+    <br>
+    <br>
+    <button onclick="showMask()">Show mask</button>
+    <button onclick="getStr(showMask)">show code...</button>
+    <br>
+    <br>
+    <button onclick="showToast1()">Show toast: 1</button>
+    <button onclick="showToast2()">Show toast: 2</button>
+    <button onclick="getStr(showToast2)">show code...</button>
     <table class="table"
       style="margin-left: 300px; margin-top: 50px; padding: 20px; border: 1px solid #eee; background-color: #fff;">
       <thead>
@@ -316,10 +384,11 @@
       </tbody>
     </table>
     <button class="btn" style="margin-top: 50px; margin-left: 100px">Read...</button>
-    <span class="txt-inline">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem provident eius
-      modi vel?
-      Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio. Perspiciatis tenetur doloribus
-      sint expedita velit?</span>
+    <span class="txt-inline">The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV
+      quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs
+      grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting
+      zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft
+      jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs!</span>
     <div class="txt" style="line-height: 2.5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
       provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
       Perspiciatis tenetur doloribus sint expedita velit?</div>
@@ -367,60 +436,7 @@
       Perspiciatis tenetur doloribus sint expedita velit?</div>
     <button class="btn2"
       style="margin-top: 50px; margin-left: 100px; width: 6em; height: 2em; font-size: 1.8em">Submit</button>
-    <!-- <web-assistant /> -->
   </div>
-  <!-- <div class="wrap">
-      <pre class="main">
-        <code class="language-js"></code>
-      </pre>
-      <div class="usage">
-        <h2>Intro</h2>
-        <p>A simple Excel-like spreadsheet web component built with <a href="https://github.com/sveltejs/svelte" target="_blank">svelte</a>.</p>
-        <ul>
-          <li>dependency free</li>
-          <li>compatible with any javascript framework/UI library</li>
-          <li>light-weighted (size: 35KB, gzip: ~12KB)</li>
-          <li>multiple cell type supported (input, select, multi-select, image, date, time)</li>
-          <li>support customized validator, formatter and computed function</li>
-          <li>support UNDO/REDO with ctrl+Z & ctrl+Y</li>
-        </ul>
-        <h2>How to use</h2>
-        <p>Install with npm:</p>
-        <pre>
-          <code class="shell">npm install web-spreadsheet --save</code>
-        </pre>
-        <p>and import it in your code:</p>
-        <pre>
-          <code class="language-js">import 'web-spreadsheet';</code>
-        </pre>
-        <p>You can also load the code from a CDN such as jsdelivr:</p>
-        <pre>
-          <code class="language-js">&lt;script src="https://cdn.jsdelivr.net/npm/web-spreadsheet@latest/lib/index.min.js"&gt;&lt;/script&gt;</code>
-        </pre>
-        <p>then you can use the customElement &lt;spread-sheet /&gt; in your HTML code.</p> 
-        <p>If you're using it in a Vue.js project, you can pass proper props columns and data into customElement such as &lt;spread-sheet :columns="columns" :data="rows"/&gt; Then your spreadsheet will come into view.</p>  
-        <p>The columns and data props look like the code on the left←</p>
-        <h2>FEATURES</h2>
-        <ul>
-          <li>cell type: input, select, multi-select, image, date, time (depends on columns array)</li>
-          <li>when the row data changed, it will automaticly emit a "change" event, so you can handle the newest row data</li>
-          <li>validator / formatter / computed functions can be added in column.params object</li>
-          <li>log at most 20 change history in memory, so you can press ctrl+Z/Y to UNDO/REDO</li>
-          <li>right clicking the row head can call the context menu which can insert/delete the row</li>
-          <li>upload images and preview images</li>
-          <li>support sort by column</li>
-          <li>auto switch languages(CN or EN) depends on your &lt;html lang="___"&gt;&lt;/html&gt;</li>
-          <li>keypress behavior like Excel (arrows, escape, tab, delete, backspace etc)</li>
-          <li>pasted letters by ctrl+V will fill current highlighted input cell</li>
-          <li>for those non-modern browsers which don't support shadowDOM or customElement, you can use polyfill to let them support: just add a &lt;script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2.5.0/webcomponents-bundle.min.js"&gt;&lt;/script&gt; in &lt;head&gt;</li>
-        </ul>
-        <h2>TODO</h2>
-        <ul>
-          <li>column actions such as insert/delete column</li>
-          <li>...</li>
-        </ul>
-      </div>
-    </div> -->
 </body>
 
 </html>
