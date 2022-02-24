@@ -125,14 +125,26 @@
       outline: none;
     }
 
-    .btn-exec {
+    .btns {
       position: absolute;
+      display: flex;
+      justify-content: space-between;
       z-index: 3;
       bottom: 19vh;
       left: 0;
       right: 0;
-      width: 8em;
+      width: 14em;
       margin: 0 auto;
+      font-size: 18px;
+    }
+
+    .btn-exec {
+      width: 6em;
+      font-size: 18px;
+    }
+
+    .btn-close {
+      width: 6em;
       font-size: 18px;
     }
 
@@ -221,6 +233,7 @@
       var filter = document.querySelector('.filter');
       var textarea = document.querySelector('#textarea');
       var exec = document.querySelector('.btn-exec');
+      var close = document.querySelector('.btn-close');
       window.addEventListener('change', function (e) {
         console.log(e.detail);
       });
@@ -306,14 +319,13 @@
       window.hideFilter = function () {
         filter.style = 'display: none';
       }
-      textarea.onclick = function (e) {
-        e.stopPropagation();
-      }
-      exec.onclick = function (e) {
-        e.stopPropagation();
+      exec.onclick = function () {
         window.hideFilter();
         var str = textarea.value;
         eval(str);
+      }
+      close.onclick = function () {
+        hideFilter();
       }
     };
   </script>
@@ -329,9 +341,12 @@
 </head>
 
 <body>
-  <div class="filter" style="display: none;" onclick="hideFilter()">
+  <div class="filter" style="display: none;">
     <textarea id="textarea" cols="30" rows="10"></textarea>
-    <button class="btn-exec">execute</button>
+    <div class="btns">
+      <button class="btn-close">close</button>
+      <button class="btn-exec">execute</button>
+    </div>
   </div>
   <h1>
     <span>web-assistant live demo</span>
