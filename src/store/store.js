@@ -87,7 +87,7 @@ export const clear = async () => {
 };
 
 export const setIntroParams = async payload => {
-  await sleep(duration);
+  await sleep(DURATION);
   let params = {
     title: 'Intro',
     transition: true,
@@ -109,7 +109,7 @@ export const setIntroParams = async payload => {
 };
 
 export const setGuideParams = async payload => {
-  await sleep(duration);
+  await sleep(DURATION);
   let params = {
     list: [],
     transition: true,
