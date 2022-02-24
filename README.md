@@ -162,4 +162,5 @@ window.webAssistant.intro({
 
 ## TODO
 - [ ] feedback component
+- [ ] mobile compatible
 - [ ] ...
