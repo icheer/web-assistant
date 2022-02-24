@@ -23,6 +23,7 @@
   .toast {
     position: fixed;
     z-index: 999999;
+    top: auto;
     bottom: 10vh;
     left: 50%;
     transform: translateX(-50%);
@@ -31,10 +32,12 @@
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 5px;
     &.bottom {
+      top: auto;
       bottom: 10vh;
     }
     &.top {
       top: 10vh;
+      bottom: auto;
     }
   }
 </style>
