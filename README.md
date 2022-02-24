@@ -6,7 +6,7 @@ A simple web component built with [svelte](https://github.com/sveltejs/svelte), 
 - compatible with any javascript framework/UI library
 - light-weighted (gzip: 57KB)
 - non-invasive design, drive the UI simply by javascript
-- auto switch languages(CN or EN) depends on your <html lang="___">
+- auto switch languages(CN or EN) depends on your \<html lang="___"\>
 
 ## Live demo
 
