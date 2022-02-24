@@ -19,9 +19,9 @@ import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams,
       });
     },
     // show mask
-    mask() {
+    mask(payload) {
       this.init();
-      showMask();
+      showMask(payload);
     },
     // show toast
     toast(payload) {

@@ -147,6 +147,19 @@ window.webAssistant.intro({
 | ---- | ---- | ---- | ---- |
 | text | The intro content | String | - |
 
+### mask parameters:
+| Key | Description | Type | Default value |
+| ---- | ---- | ---- | ---- |
+| duration | milliseconds.<br>empty or 0 means mask never dismiss | Number | - |
+
+### toast parameters:
+| Key | Description | Type | Default value |
+| ---- | ---- | ---- | ---- |
+| text | The toast text | String | - |
+| duration | milliseconds | Number | 3000 |
+| position | The toast position: bottom/top/center | String | bottom |
+| callback | Function called after toast dismisses | Function | noop |
+
 ## TODO
 - [ ] feedback component
 - [ ] ...

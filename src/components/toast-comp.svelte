@@ -39,5 +39,9 @@
       top: 10vh;
       bottom: auto;
     }
+    &.center {
+      top: 45vh;
+      bottom: auto;
+    }
   }
 </style>

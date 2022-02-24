@@ -3,7 +3,7 @@ export { get } from 'svelte/store';
 import { tick } from 'svelte';
 import { noop, sleep } from '@/helper/func';
 import _t from '@/helper/i18n';
-const duration = 150;
+const DURATION = 150;
 
 export const isShowMask = writable(false);
 
@@ -20,14 +20,25 @@ export const guideParams = writable({});
 export const isShowFeedback = writable(false);
 export const feedbackParams = writable({});
 
-export const showMask = async () => {
-  await sleep(duration);
+let maskTimer = null;
+export const showMask = async (payload = {}) => {
+  let params = {
+    duration: 0
+  };
+  params = Object.assign(params, payload);
+  await sleep(DURATION);
   isShowMask.set(true);
+  if (!params.duration) return;
+  // debounce
+  clearTimeout(maskTimer);
+  maskTimer = setTimeout(async () => {
+    isShowMask.set(false);
+  }, params.duration);
 };
 
 let toastTimer = null;
 export const showToast = async payload => {
-  await sleep(duration);
+  await sleep(DURATION);
   return new Promise((resolve, reject) => {
     const isEmptyPayload = ['', undefined, null].includes(payload);
     if (isEmptyPayload) reject('invalid params: ', payload);
@@ -67,7 +78,7 @@ export const showToast = async payload => {
 };
 
 export const clear = async () => {
-  await sleep(duration);
+  await sleep(DURATION);
   isShowIntro.set(false);
   isShowGuide.set(false);
   isShowFeedback.set(false);
