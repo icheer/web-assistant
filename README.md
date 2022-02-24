@@ -12,7 +12,9 @@ A simple web component built with [svelte](https://github.com/sveltejs/svelte), 
 
 <a href="https://guidebook.vercel.app" target="_blank">https://guidebook.vercel.app</a>
 
-![screenshot](https://i.ibb.co/jyGnQ53/20220223181550.png)
+<a href="https://guidebook.vercel.app" target="_blank">
+  <img src="https://i.ibb.co/jyGnQ53/20220223181550.png" alt="screenshot" />
+</a>
 
 ## How to use
 
