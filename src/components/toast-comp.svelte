@@ -22,8 +22,8 @@
 <style lang="less">
   .toast {
     position: fixed;
-    // z-index: 9999;
     z-index: 999999;
+    bottom: 10vh;
     left: 50%;
     transform: translateX(-50%);
     padding: 0.5em 1.1em;
@@ -32,6 +32,9 @@
     border-radius: 5px;
     &.bottom {
       bottom: 10vh;
+    }
+    &.top {
+      top: 10vh;
     }
   }
 </style>
