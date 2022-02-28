@@ -159,7 +159,6 @@ window.webAssistant.intro({
 | text | The toast text | String | - |
 | duration | milliseconds | Number | 3000 |
 | position | The toast position: bottom/top/center | String | bottom |
-| callback | Function called after toast dismisses | Function | noop |
 
 ## TODO
 - [ ] feedback component

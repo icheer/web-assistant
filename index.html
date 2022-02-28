@@ -315,13 +315,17 @@
         });
       }
       window.showToast1 = function () {
-        window.webAssistant.toast({ text: 'Hello world!', duration: 1800 });
+        window.webAssistant
+          .toast({ text: 'Hello world!', duration: 1800 })
+          .then(() => {
+            console.log('toast has dismissed');
+          });
       }
       window.showToast2 = function () {
         window.webAssistant.toast({ text: 'test message...', position: 'top', duration: 3000 });
       }
       window.showMask = function () {
-        window.webAssistant.mask({ duration: 1500 });
+        window.webAssistant.mask({ duration: 1500 }).then(() => console.log('mask has dismissed'));
       }
       window.getStr = function (func) {
         var str = func.toString();
@@ -380,7 +384,7 @@
     <br>
     <button onclick="showToast1()">Show toast: 1</button>
     <button onclick="showToast2()">Show toast: 2</button>
-    <button class="code" onclick="getStr(showToast2)">show code...</button>
+    <button class="code" onclick="getStr(showToast1)">show code...</button>
     <table class="table"
       style="margin-left: 300px; margin-top: 50px; padding: 20px; border: 1px solid #eee; background-color: #fff;">
       <thead>

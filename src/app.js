@@ -21,7 +21,7 @@ import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams,
     // show mask
     mask(payload) {
       this.init();
-      showMask(payload);
+      return showMask(payload);
     },
     // show toast
     toast(payload) {
@@ -31,25 +31,25 @@ import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams,
     // hide
     clear() {
       this.init();
-      clear();
+      return clear();
     },
     // show introduction modal
     intro(payload) {
       this.init();
       if (!payload) return console.error('no params');
-      setIntroParams(payload);
+      return setIntroParams(payload);
     },
     // show guideline
     guideline(payload) {
       this.init();
       if (!payload) return console.error('no params');
-      setGuideParams(payload);
+      return setGuideParams(payload);
     },
     // show feedback
     feedback(payload) {
       this.init();
       if (!payload) return console.error('no params');
-      setFeedbackParams(payload);
+      return setFeedbackParams(payload);
     }
   };
 })(window);

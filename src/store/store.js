@@ -22,18 +22,26 @@ export const feedbackParams = writable({});
 
 let maskTimer = null;
 export const showMask = async (payload = {}) => {
-  let params = {
-    duration: 0
-  };
-  params = Object.assign(params, payload);
   await sleep(DURATION);
-  isShowMask.set(true);
-  if (!params.duration) return;
-  // debounce
-  clearTimeout(maskTimer);
-  maskTimer = setTimeout(async () => {
-    isShowMask.set(false);
-  }, params.duration);
+  return new Promise((resolve, reject) => {
+    let params = {
+      duration: 0
+    };
+    params = Object.assign(params, payload);
+    const { duration } = params;
+    isShowMask.set(true);
+    if (!duration) return;
+    // make sure the promise will be resolved after duration ms
+    setTimeout(() => {
+      resolve();
+    }, duration);
+    // debounce
+    clearTimeout(maskTimer);
+    maskTimer = setTimeout(async () => {
+      isShowMask.set(false);
+    }, duration);
+  });
+
 };
 
 let toastTimer = null;
@@ -46,8 +54,7 @@ export const showToast = async payload => {
     let params = {
       text: '',
       duration: 3000,
-      position: 'bottom',
-      callback: noop
+      position: 'bottom'
     };
     if (type === 'string' || type === 'number') {
       params.text = payload.toString();
@@ -59,11 +66,10 @@ export const showToast = async payload => {
     toastParams.set(params);
     isShowToast.set(true);
     isExistToast.set(true);
-    const { duration, callback } = params;
+    const { duration } = params;
     // make sure the promise will be resolved after duration ms
     setTimeout(() => {
-      const handler = callback();
-      resolve(handler);
+      resolve();
     }, duration);
     // debounce
     clearTimeout(toastTimer);
