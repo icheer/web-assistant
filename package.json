@@ -38,7 +38,7 @@
     "lib"
   ],
   "description": "A simple web component built with svelte, providing version introduction & guideline instruction UI.",
-  "version": "1.0.49",
+  "version": "1.0.50",
   "author": "icheer@live.com",
   "homepage": "https://guidebook.vercel.app",
   "license": "MIT",

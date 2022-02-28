@@ -4,7 +4,7 @@ A simple web component built with [svelte](https://github.com/sveltejs/svelte), 
 
 - dependency free
 - compatible with any javascript framework/UI library
-- light-weighted (gzip: 57KB)
+- light-weighted (gzipped: 57KB)
 - non-invasive design, drive the UI simply by javascript
 - auto switch languages(CN or EN) depends on your \<html lang="___"\>
 
