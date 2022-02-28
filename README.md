@@ -48,6 +48,7 @@ window.webAssistant.guideline({
       text: 'Line1\nLine2\nLine3\nThis is a title',
       width: '220px',
       onNext: () => console.log('next tips')
+      // You can use async function here, and guideline won't go on until the async function finished
     },
     {
       selector: '.desc',
