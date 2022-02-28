@@ -1,6 +1,6 @@
 # web-assistant
 
-A simple web component built with [svelte](https://github.com/sveltejs/svelte), providing version introduction & guidline instruction UI.
+A simple web component built with [svelte](https://github.com/sveltejs/svelte), providing version introduction & guideline instruction UI.
 
 - dependency free
 - compatible with any javascript framework/UI library
