@@ -38,6 +38,6 @@ export default {
         }
       ]
     }),
-    // terser()
+    terser()
   ]
 };
