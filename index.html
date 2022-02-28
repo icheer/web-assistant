@@ -318,14 +318,14 @@
         window.webAssistant
           .toast({ text: 'Hello world!', duration: 1800 })
           .then(() => {
-            console.log('toast has dismissed');
+            console.log('toast has been dismissed');
           });
       }
       window.showToast2 = function () {
         window.webAssistant.toast({ text: 'test message...', position: 'top', duration: 3000 });
       }
       window.showMask = function () {
-        window.webAssistant.mask({ duration: 1500 }).then(() => console.log('mask has dismissed'));
+        window.webAssistant.mask({ duration: 1500 }).then(() => console.log('mask has been dismissed'));
       }
       window.getStr = function (func) {
         var str = func.toString();
