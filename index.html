@@ -241,6 +241,9 @@
       window.addEventListener('change', function (e) {
         console.log(e.detail);
       });
+      window.sleep = function (time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
       window.startGuideline = function () {
         window.webAssistant.guideline({
           list: [
@@ -262,7 +265,12 @@
               selector: '.btn',
               position: 'right',
               text: '抽象类做为其它派生类的基类使用。 它们一般不会直接被实例化。',
-              width: '350px'
+              width: '350px',
+              onNext: async () => {
+                console.log('You can use async function here');
+                await sleep(2000);
+                console.log('2 seconds passed');
+              }
             },
             {
               selector: '.btn2',
