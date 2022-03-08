@@ -21,7 +21,15 @@ const dict = {
     notice: '提示',
     attention: '注意',
     agree: '同意',
-    disagree: '不同意'
+    disagree: '不同意',
+    feedback: '反馈',
+    suggestion: '意见反馈',
+    fullName: '姓名',
+    email: '电子邮箱',
+    suggestionsAbout: '意见关于',
+    screenshot: '页面截图',
+    suggestionText: '请填写意见建议',
+    submit: '提交'
   },
   en: {
     confirm: 'Confirm',
@@ -42,7 +50,15 @@ const dict = {
     notice: 'Notice',
     attention: 'Attention',
     agree: 'Agree',
-    disagree: 'Disagree'
+    disagree: 'Disagree',
+    feedback: 'Feedback',
+    suggestion: 'Suggestion & Feedback',
+    fullName: 'Full Name',
+    email: 'Email Address',
+    suggestionsAbout: 'Suggestion about',
+    screenshot: 'Webpage Screenshot',
+    suggestionText: 'Please type your suggestion and advice here',
+    submit: 'Submit'
   }
 };
 

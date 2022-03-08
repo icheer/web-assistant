@@ -28,8 +28,8 @@
 </template>
 
 <script>
+  import html2canvas from 'html2canvas';
   import './mask-comp.svelte';
-  import 'html2canvas';
   import { onMount, tick } from 'svelte';
   import { fade } from 'svelte/transition';
   import { get, guideParams, clear } from '@/store/store';
@@ -214,6 +214,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
     z-index: 999999;
   }
   .img {

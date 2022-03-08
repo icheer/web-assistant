@@ -51,7 +51,7 @@ window.webAssistant.guideline({
       // You can use async function here, and guideline won't go on until the async function finished
     },
     {
-      selector: '.desc',
+      selector: 'p.desc:nth-child(2)',
       position: 'top-end',
       text: 'This a testing paragraph...',
       maxWidth: '380px',
@@ -98,6 +98,39 @@ window.webAssistant.intro({
 });
 ```
 
+The feedback parameters example:
+```js
+window.webAssistant.feedback({
+  title: 'Suggestion & Feedback',
+  bottom: '12px',
+  fullNameVisible: true,
+  emailVisible: true,
+  emailRequired: true,
+  problemVisible: true,
+  problemList: [
+    {
+      label: 'System features',
+      value: 'system'
+    },
+    {
+      label: 'User experience',
+      value: 'uex'
+    },
+    {
+      label: 'Others',
+      value: 'other'
+    }
+  ],
+  screenshotNeeded: true,
+  callback: fd => {
+    fetch('/some-api/feedback/submit', {
+      method: 'POST',
+      body: fd
+    });
+  }
+});
+```
+
 ## PARAMETERS
 ### guideline params:
 | Key | Description | Type | Default value |
@@ -115,7 +148,7 @@ window.webAssistant.intro({
 | onConfirm | Function called after confirmed | Function | noop |
 | popperStyle | Inline style string that attached to the popper element | String | - |
 
-### *guideline list item*:
+#### *guideline list item*:
 | Key | Description | Type | Default value |
 | ---- | ---- | ---- | ---- |
 | selector | [Required] CSS selector to find the DOM | String | - |
@@ -125,8 +158,6 @@ window.webAssistant.intro({
 | maxWidth | The popper's max-width | String | - |
 | onPrev | Function called when going previous step | Function | noop |
 | onNext | Function called when going next step | Function | noop |
-
----
 
 ### intro params:
 | Key | Description | Type | Default value |
@@ -143,17 +174,39 @@ window.webAssistant.intro({
 | onConfirm | Function called after confirmed | Function | noop |
 | style | Style object that affects intro element | Object | {} |
 
-### *intro list item*:
+#### *intro list item*:
 | Key | Description | Type | Default value |
 | ---- | ---- | ---- | ---- |
 | text | The intro content | String | - |
 
-### mask parameters:
+### feedback params:
+| Key | Description | Type | Default value |
+| ---- | ---- | ---- | ---- |
+| title | The title of feedback for display | String | (i18n) |
+| bottom | The distance to the bottom of viewport | String | 15px |
+| emailVisible | If the email input is shown | Boolean | true |
+| emailRequired | If the email is required | Boolean | false |
+| nameVisible | If the fullName input is shown | Boolean | false |
+| nameRequired | If the fullName is required | Boolean | false |
+| problemVisible | If the problem select is shown | Boolean | false |
+| problemRequired | If the problem is required | Boolean | true |
+| problemList | The problem list | Array | (See feedback problem list item ↓) |
+| screenshotVisible | If the email input is shown | Boolean | true |
+| screenshotNeeded | If the email is required | Boolean | false |
+| callback | Function called when submitting | Function | noop |
+
+#### *feedback problem list item*:
+| Key | Description | Type | Default value |
+| ---- | ---- | ---- | ---- |
+| label | The problem description | String | - |
+| value | The problem code | String | - |
+
+### mask params:
 | Key | Description | Type | Default value |
 | ---- | ---- | ---- | ---- |
 | duration | milliseconds.<br>empty or 0 means mask never dismiss,<br>then you should call window.webAssistant.clear() to dismiss it manually. | Number | - |
 
-### toast parameters:
+### toast params:
 | Key | Description | Type | Default value |
 | ---- | ---- | ---- | ---- |
 | text | The toast text | String | - |

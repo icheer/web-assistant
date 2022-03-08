@@ -1,12 +1,12 @@
-import { sel, CE } from '@/helper/func';
-import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams, clear } from '@/store/store';
+import { sel, CE, sleep } from '@/helper/func';
+import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams, isShowFeedback, clear } from '@/store/store';
 (function (window) {
   if (!window) return;
   if (window.webAssistant) return;
   const checkIfHasComp = () => !!sel('body web-assistant');
   if (checkIfHasComp()) return console.error('already have a <web-assistant /> in html');
 
-  window.webAssistant = {
+  const obj = {
     // insert web component
     init() {
       if (checkIfHasComp()) return;
@@ -50,8 +50,15 @@ import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams,
       this.init();
       if (!payload) return console.error('no params');
       return setFeedbackParams(payload);
+    },
+    sleep(time) {
+      return sleep(time);
     }
   };
+  obj.intro.clear = clear;
+  obj.guideline.clear = clear;
+  obj.feedback.clear = () => isShowFeedback.set(false);
+  window.webAssistant = obj;
 })(window);
 
 export const webAssistant = window.webAssistant;

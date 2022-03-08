@@ -48,17 +48,22 @@ export const getLabelFromDict = (value, dict) => {
   }
 }
 
-export const dispatchEvent = (e, params) => {
-  const { eventName, payload } = params;
+export const dispatchEvent = (dom, eventName, params) => {
+  if (!dom || !dom.nodeType) {
+    return console.error('The first param should be DOM');
+  }
+  if (typeof eventName !== 'string') {
+    return console.error('The second param should be event name <string>');
+  }
   // 1. Create the custom event.
   const event = new CustomEvent(eventName, {
-    detail: payload,
+    detail: params,
     bubbles: true,
     cancelable: true,
     composed: true // makes the event jump shadow DOM boundary
   });
   // 2. Dispatch the custom event.
-  e.target.dispatchEvent(event);
+  dom.dispatchEvent(event);
 };
 
 // 判断是否中文页面

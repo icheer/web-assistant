@@ -2,9 +2,12 @@ import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import sveltePreprocess from 'svelte-preprocess';
 import alias from '@rollup/plugin-alias';
+import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 import path from 'path';
+
+import html2canvas from 'html2canvas';
 
 const name = pkg.name
   .replace(/^(@\S+\/)?(svelte-)?(\S+)/, '$3')
@@ -24,6 +27,12 @@ export default {
     }),
     resolve({
       browser: true
+    }),
+    commonjs({
+      include: /node_modules/,
+      namedExports: {
+        'html2canvas': Object.keys(html2canvas)
+      }
     }),
     alias({
       resolve: ['.js'],

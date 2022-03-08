@@ -22,6 +22,7 @@
 <style lang="less">
   .toast {
     position: fixed;
+    z-index: 9999;
     z-index: 999999;
     top: auto;
     bottom: 10vh;

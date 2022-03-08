@@ -6,7 +6,7 @@ function build(fileName) {
   if (isBuilding) return;
   isBuilding = true;
   const date = new Date();
-  console.log(`${date.toLocaleTimeString().split(' ')[0]} - ${fileName} has changed, building now... ^_^`);
+  console.log(`${date.toLocaleTimeString().split(' ')[0]} - ${fileName} has changed, building now... (ﾉﾟ▽ﾟ)ﾉ`);
   cp.exec('npm run build', err => {
     setTimeout(() => {
       isBuilding = false;

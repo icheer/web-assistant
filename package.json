@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.2",
+    "@rollup/plugin-commonjs": "^21.0.2",
     "@rollup/plugin-node-resolve": "^9.0.0",
     "less": "^3.13.1",
     "pug": "^3.0.0",
@@ -27,18 +28,18 @@
   },
   "keywords": [
     "svelte",
-    "web",
     "component",
     "guideline",
     "introduction",
-    "instruction"
+    "instruction",
+    "walkthrough"
   ],
   "files": [
     "src",
     "lib"
   ],
   "description": "A simple web component built with svelte, providing version introduction & guideline instruction UI.",
-  "version": "1.0.50",
+  "version": "1.1.0",
   "author": "icheer@live.com",
   "homepage": "https://guidebook.vercel.app",
   "license": "MIT",

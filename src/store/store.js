@@ -87,7 +87,6 @@ export const clear = async () => {
   await sleep(DURATION);
   isShowIntro.set(false);
   isShowGuide.set(false);
-  isShowFeedback.set(false);
   isShowMask.set(false);
   isShowToast.set(false);
 };
@@ -137,4 +136,28 @@ export const setGuideParams = async payload => {
   isShowMask.set(false);
 };
 
-export const setFeedbackParams = async payload => { };
+export const setFeedbackParams = async payload => {
+  if (!payload) {
+    isShowFeedback.set(false);
+    return;
+  }
+  isShowFeedback.set(false);
+  await sleep(0);
+  let params = {
+    title: _t('suggestion'),
+    bottom: '15px',
+    emailVisible: true,
+    emailRequired: false,
+    nameVisible: false,
+    nameRequired: false,
+    problemVisible: false,
+    problemRequired: true,
+    problemList: [],
+    screenshotVisible: true,
+    screenshotNeeded: false,
+    callback: noop
+  };
+  params = Object.assign(params, payload);
+  feedbackParams.set(params);
+  isShowFeedback.set(true);
+};
