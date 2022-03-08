@@ -214,6 +214,5 @@ window.webAssistant.feedback({
 | position | The toast position: bottom/top/center | String | bottom |
 
 ## TODO
-- [ ] feedback component
 - [ ] mobile compatible
 - [ ] ...
