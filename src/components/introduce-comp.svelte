@@ -12,9 +12,9 @@
             +if("idx === index")
               .content(in:fly="{transitionInParams}" out:fly="{transitionOutParams}")
                 +if("!isHtml")
-                  div {item.text || ''}
+                  div.rel {item.text || ''}
                 +if("isHtml")
-                  div {@html item.text || ''}
+                  div.rel {@html item.text || ''}
         .footer
           +if("canPrev")
             .btn.prev(on:click="{prevHandler}" class:disabled="{btnDisabled}") {prevText}
@@ -179,7 +179,8 @@
       position: relative;
       flex-grow: 1;
       flex-shrink: 1;
-      padding: 12px 4px 0;
+      padding: 0 4px;
+      margin-top: 12px;
       margin-bottom: 12px;
       max-height: calc(100% - 80px);
       box-sizing: border-box;
@@ -187,9 +188,16 @@
       overflow-y: auto;
       .content {
         position: absolute;
+        width: 100%;
+        height: 100%;
         line-height: 1.5;
         white-space: pre-wrap;
         text-align: justify;
+        .rel {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
       }
     }
     .footer {
