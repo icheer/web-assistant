@@ -30,7 +30,7 @@ and import it in your code:
 import 'web-assistant';
 ```
 
-You can **also** load the code from a CDN such as jsdelivr:
+You can **also** load the package from a CDN such as jsdelivr (or unpkg):
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/web-assistant@latest/lib/index.min.js"></script>

@@ -1,6 +1,12 @@
 <template lang="pug">
   svelte:options(tag="mask-comp")
-  .web-assistant-mask
+  .web-assistant-mask(
+    on:click|stopPropagation
+    on:mousedown|stopPropagation
+    on:mouseup|stopPropagation
+    on:touchstart|stopPropagation
+    on:touchend|stopPropagation
+  )
     slot
 </template>
 
