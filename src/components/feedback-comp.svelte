@@ -63,9 +63,10 @@
   import { clickOutside } from '@/helper/use';
 
   import { imgFeedback, imgArrowLeft } from '../assets/img/';
+  let p = get(feedbackParams);
   let dom = null;
   let isShow = false;
-  let isFold = true;
+  let isFold = !!p.folded;
   let isBusy = false;
   let form = {
     fullName: '',
@@ -74,7 +75,6 @@
     screenshot: null,
     suggestionText: ''
   };
-  let p = get(feedbackParams);
   let isNeedScreenshot = p.screenshotNeeded;
   let isValidating = false;
 

@@ -184,6 +184,7 @@ window.webAssistant.feedback({
 | ---- | ---- | ---- | ---- |
 | title | The title of feedback for display | String | (i18n) |
 | bottom | The distance to the bottom of viewport | String | 15px |
+| folded | If the feedback panel is folded at the begining | Boolean | true |
 | emailVisible | If the email input is shown | Boolean | true |
 | emailRequired | If the email is required | Boolean | false |
 | nameVisible | If the fullName input is shown | Boolean | false |
