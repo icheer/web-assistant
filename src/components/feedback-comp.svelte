@@ -42,7 +42,7 @@
             .line
               .label.required(draggable="none") {_t('suggestion')}：
               .value
-                textarea(bind:value="{form.suggestionText}" class:empty="{!form.suggestionText.trim()}")
+                textarea(bind:value="{form.suggestionText}" class:empty="{!form.suggestionText.trim()}" placeholder="{placeholder}")
           +if("isShowScreenshot")
             .line
               .label(draggable="none")
@@ -88,6 +88,7 @@
   $: isRequireProblem = p.problemRequired;
   $: problemList = p.problemList || [];
   $: isShowScreenshot = p.screenshotVisible;
+  $: placeholder = p.placeholder;
   $: callback = p.callback;
 
   onMount(() => {
@@ -324,8 +325,8 @@
           select,
           textarea {
             width: 100%;
+            padding: 2px 4px;
             box-sizing: border-box;
-            // outline-color: #409eff;
             outline: none !important;
             border-color: rgb(118, 118, 118) !important;
             border-width: 1px;
@@ -338,8 +339,7 @@
           textarea {
             resize: none;
             height: calc(6em + 6px);
-            line-height: 1.5em;
-            padding: 2px;
+            line-height: 1.5;
             font-family: system;
           }
           label {
@@ -361,6 +361,12 @@
             }
           }
         }
+      }
+      input::-webkit-input-placeholder {
+        color: #bbb !important;
+      }
+      textarea::-webkit-input-placeholder {
+        color: #bbb !important;
       }
     }
     @keyframes blink {

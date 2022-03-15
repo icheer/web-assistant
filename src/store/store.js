@@ -156,6 +156,7 @@ export const setFeedbackParams = async payload => {
     screenshotVisible: true,
     screenshotNeeded: false,
     isFold: true,
+    placeholder: '',
     callback: noop
   };
   params = Object.assign(params, payload);

@@ -194,6 +194,7 @@ window.webAssistant.feedback({
 | problemList | The problem list | Array | (See feedback problem list item ↓) |
 | screenshotVisible | If the email input is shown | Boolean | true |
 | screenshotNeeded | If the email is required | Boolean | false |
+| placeholder | The placeholder text of the suggestion textarea | String | - |
 | callback | Function called when submitting | Function | noop |
 
 #### *feedback problem list item*:
