@@ -179,7 +179,7 @@
       position: relative;
       flex-grow: 1;
       flex-shrink: 1;
-      padding: 0 4px;
+      padding: 0;
       margin-top: 12px;
       margin-bottom: 12px;
       max-height: calc(100% - 80px);
