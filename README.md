@@ -216,5 +216,6 @@ window.webAssistant.feedback({
 | position | The toast position: bottom/top/center | String | bottom |
 
 ## TODO
+- [ ] mouse cursor
 - [ ] mobile compatible
 - [ ] ...
