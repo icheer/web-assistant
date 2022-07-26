@@ -103,16 +103,21 @@
     let x = 0;
     let y = 0;
     let dom = null;
-    let str = params[key] || '';
-    if (!str) return;
+    let val = params[key] || '';
+    if (!val) return;
     const regex = /^\d+\s*\,\s*\d+$/;
-    if (regex.test(str)) {
-      str = str.replace(/\s/g, '');
-      const arr = str.split(',');
+    if (regex.test(val)) {
+      val = val.replace(/\s/g, '');
+      const arr = val.split(',');
       x = arr[0];
       y = arr[1];
     } else {
-      const el = sel(str);
+      let el = null;
+      if (val instanceof Element) {
+        el = val;
+      } else {
+        el = sel(val);
+      }
       if (!el) return console.error("can't find element");
       dom = el;
       const rect = el.getBoundingClientRect();

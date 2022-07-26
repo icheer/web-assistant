@@ -207,11 +207,11 @@ window.webAssistant.feedback({
 | Key | Description | Type | Default value |
 | ---- | ---- | ---- | ---- |
 | type | Cursor appearance: default/reverse/pointer | String | default |
-| from | Position where cursor moves from (can be x,y or css selector. i.e. `100,300` or `button.submit`) | String | - |
-| to | [Required] Position where cursor moves to (same as 'from') | String | - |
+| from | Position where cursor moves from (can be x,y or css selector. i.e. `100,300` or `button.submit` or `document.body`) | String or HTMLElement | - |
+| to | [Required] Position where cursor moves to (same as 'from') | String or HTMLElement | - |
 | scale | Cursor's scale | Number | 1 |
 | duration | Cursor's moving duration | Number | 1500 |
-| stay | Cursor will stay at the end position until specified ms | Number | 150 |
+| stay | Cursor will stay at the end position for specified ms | Number | 150 |
 | clickAfterMove | Cursor will automatically click the `to` element after moving | Boolean | false |
 | clickEffect | Cursor will show a red circle animation when clicking | Boolean | false |
 | overlay | A overlay will show when the cursor is displayed (prevent the other user's actions) | Boolean | false |
