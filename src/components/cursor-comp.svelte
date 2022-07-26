@@ -210,7 +210,7 @@
           margin-left: -20%;
         }
         &:after {
-          margin-left: 20%;
+          margin-left: 14%;
         }
         img {
           margin-left: -30%;
