@@ -7,68 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- 如旧浏览器不支持shadowDOM, 使用以下polyfill -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/@webcomponents/webcomponentsjs@2.5.0/webcomponents-bundle.min.js"></script> -->
+  <script>
+    document.querySelector('html').setAttribute('lang', Math.random() > 0.5 ? 'zh-Hans' : 'en-us');
+  </script>
   <script type="module" src="./lib/index.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/web-assistant@latest/lib/index.min.js"></script> -->
-  <style>
-    .hljs-comment,
-    .hljs-quote {
-      color: #7d7a68;
-    }
-
-    .hljs-attribute,
-    .hljs-link,
-    .hljs-name,
-    .hljs-regexp,
-    .hljs-selector-class,
-    .hljs-selector-id,
-    .hljs-tag,
-    .hljs-template-variable,
-    .hljs-variable {
-      color: #d73737;
-    }
-
-    .hljs-built_in,
-    .hljs-builtin-name,
-    .hljs-literal,
-    .hljs-meta,
-    .hljs-number,
-    .hljs-params,
-    .hljs-type {
-      color: #b65611;
-    }
-
-    .hljs-bullet,
-    .hljs-string,
-    .hljs-symbol {
-      color: #60ac39;
-    }
-
-    .hljs-section,
-    .hljs-title {
-      color: #6684e1;
-    }
-
-    .hljs-keyword,
-    .hljs-selector-tag {
-      color: #b854d4;
-    }
-
-    .hljs {
-      display: block;
-      overflow-x: auto;
-      background: #fefbec;
-      color: #6e6b5e;
-      padding: 0.5em;
-    }
-
-    .hljs-emphasis {
-      font-style: italic;
-    }
-
-    .hljs-strong {
-      font-weight: 700;
-    }
-  </style>
   <title>web-assistant</title>
   <style>
     ::-webkit-scrollbar {
