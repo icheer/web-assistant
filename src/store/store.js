@@ -211,7 +211,10 @@ export const setCursorParams = async payload => {
     + durationAtEnd
     + (params.clickAfterMove && durationBeforeClick || 0)
     + (params.clickEffect && durationClick || 0);
-  cursorTimer = setTimeout(() => {
-    isShowCursor.set(false);
-  }, totalTime);
+  return new Promise(resolve => {
+    cursorTimer = setTimeout(() => {
+      isShowCursor.set(false);
+      resolve();
+    }, totalTime);
+  });
 };
