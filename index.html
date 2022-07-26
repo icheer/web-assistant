@@ -274,10 +274,13 @@
           from: document.body,
           to: 'table',
           duration: 1500,
+          stay: 3000,
           highlight: true,
           clickAfterMove: true,
           clickEffect: true,
           overlay: true
+        }).then(() => {
+          console.log('promise resolved...');
         });
       }
       window.showToast1 = function () {
