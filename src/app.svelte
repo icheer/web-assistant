@@ -9,6 +9,8 @@
       guideline-comp
     +if("$isShowFeedback")
       feedback-comp
+    +if("$isShowCursor")
+      cursor-comp
     +if("$isExistToast")
       toast-comp
 </template>
@@ -17,6 +19,7 @@
   import '_/introduce-comp.svelte';
   import '_/guideline-comp.svelte';
   import '_/feedback-comp.svelte';
+  import '_/cursor-comp.svelte';
   import '_/toast-comp.svelte';
   import '_/mask-comp.svelte';
   import { onMount, tick } from 'svelte';
@@ -27,7 +30,8 @@
     isExistToast,
     isShowIntro,
     isShowGuide,
-    isShowFeedback
+    isShowFeedback,
+    isShowCursor
   } from '@/store/store';
 </script>
 

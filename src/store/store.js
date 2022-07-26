@@ -1,6 +1,5 @@
-import { writable, derived, get } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 export { get } from 'svelte/store';
-import { tick } from 'svelte';
 import { noop, sleep } from '@/helper/func';
 import _t from '@/helper/i18n';
 const DURATION = 150;
@@ -19,6 +18,9 @@ export const guideParams = writable({});
 
 export const isShowFeedback = writable(false);
 export const feedbackParams = writable({});
+
+export const isShowCursor = writable(false);
+export const cursorParams = writable({});
 
 let maskTimer = null;
 export const showMask = async (payload = {}) => {
@@ -87,6 +89,7 @@ export const clear = async () => {
   await sleep(DURATION);
   isShowIntro.set(false);
   isShowGuide.set(false);
+  isShowCursor.set(false);
   isShowMask.set(false);
   isShowToast.set(false);
 };
@@ -162,4 +165,53 @@ export const setFeedbackParams = async payload => {
   params = Object.assign(params, payload);
   feedbackParams.set(params);
   isShowFeedback.set(true);
+};
+
+let cursorTimer = null;
+export const setCursorParams = async payload => {
+  if (cursorTimer) {
+    clearTimeout(cursorTimer);
+    cursorTimer = null;
+    isShowCursor.set(false);
+    await sleep(0);
+  }
+  if (!payload) {
+    isShowCursor.set(false);
+    return;
+  }
+  const durationDefault = 1500;
+  const durationStayDefault = 150;
+  const durationAtEnd = 300;
+  const durationBeforeClick = 150;
+  const durationClick = 150;
+  const scaleDefault = 1;
+  let params = {
+    type: 'default',
+    scale: scaleDefault,
+    duration: durationDefault,
+    stay: durationStayDefault,
+    clickAfterMove: false,
+    clickEffect: false,
+    overlay: false
+  };
+  params = Object.assign(params, payload);
+  if (params.scale < 0.2 || params.scale > 5) {
+    params.scale = scaleDefault;
+  }
+  if (params.duration < 10 || params.duration > 10000 || !Number.isFinite(params.duration)) {
+    params.duration = durationDefault;
+  }
+  if (params.stay < 0 || !Number.isFinite(params.stay)) {
+    params.stay = durationStayDefault;
+  }
+  cursorParams.set(params);
+  isShowCursor.set(true);
+  const totalTime = params.duration
+    + params.stay
+    + durationAtEnd
+    + (params.clickAfterMove && durationBeforeClick || 0)
+    + (params.clickEffect && durationClick || 0);
+  cursorTimer = setTimeout(() => {
+    isShowCursor.set(false);
+  }, totalTime);
 };

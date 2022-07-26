@@ -62,7 +62,7 @@
   import _t from '@/helper/i18n';
   import { clickOutside } from '@/helper/use';
 
-  import { imgFeedback, imgArrowLeft } from '../assets/img/';
+  import { imgFeedback, imgArrowLeft } from '@/assets/img/';
   let p = get(feedbackParams);
   let dom = null;
   let isShow = false;

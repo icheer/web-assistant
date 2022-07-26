@@ -1,10 +1,10 @@
 <template lang="pug">
   svelte:options(tag="guideline-comp")
   +if("isShow")
-    //- mask-comp(transition:fade="{{duration: transition ? 150 : 0}}")
-    mask-comp
+    mask-comp(transparent notyping)
       +if("!isBusy")
-        img.img(src="{current.imgSrc}" alt="" style="{currentImageStyle}" draggable="false")
+        .dummy.dummy1(bind:this="{dummyElement1}" style="{currentDummyStyle}" transition:fade="{{duration: transition ? 150 : 0}}")
+        .dummy.dummy2(bind:this="{dummyElement2}" style="{currentDummyStyle}" transition:fade="{{duration: transition ? 150 : 0}}")
       +if("!isBusy")
         .popper(bind:this="{popperElement}" class="{current.position || 'bottom'}" style="{currentPopperStyle}")
           +if("!isHtml")
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-  import html2canvas from 'html2canvas';
   import './mask-comp.svelte';
   import { onMount, tick } from 'svelte';
   import { fade } from 'svelte/transition';
@@ -37,9 +36,11 @@
 
   let idx = 0;
   let current = {};
-  let currentImageStyle = '';
+  let currentDummyStyle = '';
   let currentPopperStyle = '';
   let popperElement = null;
+  let dummyElement1 = null;
+  let dummyElement2 = null;
   let isShow = false;
   let isBusy = false;
 
@@ -82,23 +83,19 @@
     }
     dom.scrollIntoViewIfNeeded();
     current = {};
-    const canvas = await html2canvas(dom, { allowTaint: true, useCORS: true });
-    const imgSrc = canvas.toDataURL('image/png');
     const { top, left, width, height } = dom.getBoundingClientRect();
-    current = { ...item, imgSrc, imgStyle: { top, left, width, height } };
+    current = { ...item, domStyle: { top, left, width, height } };
     tick().then(() => {
-      renderImage();
+      renderDummy();
       renderPopper();
     });
   }
 
-  // 截图的style
-  function renderImage() {
-    const style = current.imgStyle || {};
-    const styleList = Object.keys(style).map(
-      key => `${key}:${key === 'height' ? 'auto' : style[key] + 'px'}`
-    );
-    currentImageStyle = styleList.join(';');
+  // 占位透明元素的style
+  function renderDummy() {
+    const keys = ['width', 'height', 'top', 'left'];
+    const styleList = keys.map(k => `${k}:${current.domStyle[k] + 'px'}`);
+    currentDummyStyle = styleList.join(';');
   }
 
   // 气泡的style
@@ -109,7 +106,7 @@
       left: imgLeft,
       width: imgWidth,
       height: imgHeight
-    } = current.imgStyle || {};
+    } = current.domStyle || {};
     let {
       width: popperWidth = 'auto',
       maxWidth: popperMaxWidth = 'auto',
@@ -158,9 +155,10 @@
       popperTop = imgTop + imgHeight + gap;
       popperLeft = imgLeft + (imgWidth - rect.width) / 2;
     }
-    currentPopperStyle = `width:${popperWidth};max-width:${popperMaxWidth};top:${popperTop}px;left:${popperLeft}px;opacity:0;${popperStyle}`;
+    const styleStr = `width:${popperWidth};max-width:${popperMaxWidth};top:${popperTop}px;left:${popperLeft}px;opacity:0;${popperStyle}`;
+    currentPopperStyle = styleStr;
     await sleep(0);
-    currentPopperStyle = `width:${popperWidth};max-width:${popperMaxWidth};top:${popperTop}px;left:${popperLeft}px;opacity:1;${popperStyle}`;
+    currentPopperStyle = styleStr.replace('opacity:0;', 'opacity:1');
   }
 
   function getAttr(name, defaultValue) {
@@ -213,15 +211,49 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
+    // background-color: rgba(0, 0, 0, 0.5);
     z-index: 9999;
     z-index: 999999;
   }
-  .img {
+  .dummy {
     position: absolute;
     user-select: none;
     cursor: default;
     -webkit-touch-callout: none;
+    // background-color: red;
+    &.dummy {
+      &:before,
+      &:after {
+        display: block;
+        position: absolute;
+        content: '';
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      &.dummy1:before {
+        top: -2000px;
+        left: -3000px;
+        width: 6000px;
+        height: 2000px;
+      }
+      &.dummy1:after {
+        bottom: -2000px;
+        left: -3000px;
+        width: 6000px;
+        height: 2000px;
+      }
+      &.dummy2:before {
+        top: 0px;
+        left: -3000px;
+        width: 3000px;
+        height: 100%;
+      }
+      &.dummy2:after {
+        top: 0px;
+        right: -3000px;
+        width: 3000px;
+        height: 100%;
+      }
+    }
   }
   .popper {
     position: absolute;

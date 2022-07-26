@@ -305,6 +305,35 @@
       window.hideFeedback = function () {
         window.webAssistant.feedback.clear();
       }
+      window.showCursor1 = function () {
+        window.webAssistant.cursor({
+          from: '500, 100',
+          to: 'button.btn',
+          duration: 1500
+        });
+      }
+      window.showCursor2 = function () {
+        window.webAssistant.cursor({
+          type: 'reverse',
+          scale: 0.75,
+          to: 'button.code.cursor',
+          duration: 1000,
+          clickAfterMove: true,
+          clickEffect: true
+        });
+      }
+      window.showCursor3 = function () {
+        window.webAssistant.cursor({
+          type: 'pointer',
+          scale: 2,
+          to: 'table',
+          duration: 1500,
+          highlight: true,
+          clickAfterMove: true,
+          clickEffect: true,
+          overlay: true
+        });
+      }
       window.showToast1 = function () {
         window.webAssistant
           .toast({ text: 'Hello world!', duration: 1800 })
@@ -373,7 +402,15 @@
     <button class="code" onclick="getStr(showFeedback)">show code...</button>
     <button onclick="hideFeedback()">Hide feedback</button>
     <button class="code" onclick="getStr(hideFeedback)">show code...</button>
-    <small style="color: red;">&nbsp;<- New!</small>
+    <br>
+    <br>
+    <button onclick="showCursor1()">Show cursor (let the fake cursor move)</button>
+    <button class="code" onclick="getStr(showCursor1)">show code...</button>
+    <button onclick="showCursor2()">Show cursor (even click after moving)</button>
+    <button class="code cursor" onclick="getStr(showCursor2)">show code...</button>
+    <button onclick="showCursor3()">Show cursor (3 cursor appearance)</button>
+    <button class="code" onclick="getStr(showCursor3)">show code...</button>
+    <small style="color: red; font-weight: 700;">&nbsp;← New!</small>
     <br>
     <br>
     <button onclick="showMask()">Show mask</button>
@@ -418,9 +455,11 @@
       provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
       Perspiciatis tenetur doloribus sint expedita velit?</span>
     <div class="txt">The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV
-      quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs
+      quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox
+      nymphs
       grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting
-      zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft
+      zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly
+      daft
       jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs!</div>
     <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
       provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
