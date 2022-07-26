@@ -131,7 +131,7 @@ window.webAssistant.feedback({
 });
 ```
 
-## PARAMETERS
+## Parameters
 ### guideline params:
 | Key | Description | Type | Default value |
 | ---- | ---- | ---- | ---- |
