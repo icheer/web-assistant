@@ -169,7 +169,7 @@
   async function prevHandler() {
     const { onPrev = noop } = current;
     isBusy = true;
-    await sleep(150);
+    await sleep(20);
     await onPrev();
     await process(--idx);
     isBusy = false;
@@ -178,7 +178,7 @@
   async function nextHandler() {
     const { onNext = noop } = current;
     isBusy = true;
-    await sleep(150);
+    await sleep(20);
     await onNext();
     await process(++idx);
     isBusy = false;
