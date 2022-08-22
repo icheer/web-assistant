@@ -10,6 +10,7 @@
   <script>
     document.querySelector('html').setAttribute('lang', Math.random() > 0.5 ? 'zh-Hans' : 'en-us');
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/eruda@2.5.0/eruda.min.js"></script>
   <script type="module" src="./lib/index.js"></script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/web-assistant@latest/lib/index.min.js"></script> -->
   <title>web-assistant</title>
@@ -178,7 +179,10 @@
           canClose: true,
           showSteps: true,
           confirmText: '我已阅读并遵守',
-          onConfirm: () => console.log('confirmed')
+          onConfirm: () => {
+            console.log('confirmed');
+            document.querySelector('.card').scrollTo(0, 0);
+          }
         });
       }
       window.startIntroduction = function () {
@@ -400,60 +404,40 @@
       </tbody>
     </table>
     <button class="btn" style="margin-top: 50px;">Read...</button>
-    <span class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</span>
-    <div class="txt">The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV
-      quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox
-      nymphs
-      grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting
-      zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly
-      daft
-      jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs!</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
-    <div class="txt">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem
-      provident eius modi vel? Rerum adipisci quis illum? Corrupti quasi velit, ullam recusandae debitis optio.
-      Perspiciatis tenetur doloribus sint expedita velit?</div>
+    <span class="txt">She borrowed the book from him many years ago and hasn't yet returned it. He set out for a short
+      walk, but now all he could see were mangroves and water were for miles. She used her own hair in the soup to give
+      it more flavor. She finally understood that grief was her love with no place for it to go. The efficiency with
+      which he paired the socks in the drawer was quite admirable. When money was tight, he'd get his lunch money from
+      the local wishing well. He liked to play with words in the bathtub. </span>
+    <div class="txt">The efficiency with which he paired the socks in the drawer was quite admirable.
+      When money was tight, he'd get his lunch money from the local wishing well.
+      He liked to play with words in the bathtub.</div>
+    <div class="txt">Everyone was busy, so I went to the movie alone. She was sad to hear that fireflies are facing
+      extinction due to artificial light, habitat loss, and pesticides. Wisdom is easily acquired when hiding under the
+      bed with a saucepan on your head.</div>
+    <div class="txt">He was 100% into fasting with her until he understood that meant he couldn't eat. Gwen had her best
+      sleep ever on her new bed of nails. Tom got a small piece of pie. I would have gotten the promotion, but my
+      attendance wasn’t good enough.</div>
+    <div class="txt">Everyone was busy, so I went to the movie alone. She was sad to hear that fireflies are facing
+      extinction due to artificial light, habitat loss, and pesticides. Wisdom is easily acquired when hiding under the
+      bed with a saucepan on your head.</div>
+    <div class="txt">He was 100% into fasting with her until he understood that meant he couldn't eat. Gwen had her best
+      sleep ever on her new bed of nails. Tom got a small piece of pie. I would have gotten the promotion, but my
+      attendance wasn’t good enough.</div>
+    <div class="txt">Everyone was busy, so I went to the movie alone. She was sad to hear that fireflies are facing
+      extinction due to artificial light, habitat loss, and pesticides. Wisdom is easily acquired when hiding under the
+      bed with a saucepan on your head.</div>
+    <div class="txt">He was 100% into fasting with her until he understood that meant he couldn't eat. Gwen had her best
+      sleep ever on her new bed of nails. Tom got a small piece of pie. I would have gotten the promotion, but my
+      attendance wasn’t good enough.</div>
+    <div class="txt">Everyone was busy, so I went to the movie alone. She was sad to hear that fireflies are facing
+      extinction due to artificial light, habitat loss, and pesticides. Wisdom is easily acquired when hiding under the
+      bed with a saucepan on your head.</div>
+    <div class="txt">He was 100% into fasting with her until he understood that meant he couldn't eat. Gwen had her best
+      sleep ever on her new bed of nails. Tom got a small piece of pie. I would have gotten the promotion, but my
+      attendance wasn’t good enough.</div>
     <button class="btn2"
-      style="margin-top: 50px; margin-left: 230px; width: 4.5em; height: 2em; font-size: 1.4em">Submit</button>
+      style="margin-top: 50px; margin-left: 230px; width: 5.5em; height: 2em; font-size: 1.4em">Submit</button>
   </div>
 </body>
 
