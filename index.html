@@ -10,9 +10,9 @@
   <script>
     document.querySelector('html').setAttribute('lang', Math.random() > 0.5 ? 'zh-Hans' : 'en-us');
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/eruda@2.5.0/eruda.min.js"></script>
-  <script type="module" src="./lib/index.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/eruda@2.5.0/eruda.min.js"></script> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/web-assistant@latest/lib/index.min.js"></script> -->
+  <script type="module" src="./lib/index.js"></script>
   <title>web-assistant</title>
   <style>
     ::-webkit-scrollbar {
@@ -92,6 +92,10 @@
     .btn-close {
       width: 6em;
       font-size: 18px;
+    }
+
+    button {
+      margin: 2px 0;
     }
 
     button.code {
