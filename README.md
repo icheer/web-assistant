@@ -10,9 +10,9 @@ A simple web component built with [svelte](https://github.com/sveltejs/svelte), 
 
 ## Live demo
 
-<a href="https://guidebook.vercel.app" target="_blank">https://guidebook.vercel.app</a>
+<a href="https://guidebook.topurl.cn" target="_blank">https://guidebook.topurl.cn</a>
 
-<a href="https://guidebook.vercel.app" target="_blank">
+<a href="https://guidebook.topurl.cn" target="_blank">
   <img src="https://i.ibb.co/jyGnQ53/20220223181550.png" alt="screenshot" />
 </a>
 
