@@ -11,6 +11,8 @@
       feedback-comp
     +if("$isShowCursor")
       cursor-comp
+    +if("$isShowWatermark")
+      watermark-comp
     +if("$isExistToast")
       toast-comp
 </template>
@@ -20,6 +22,7 @@
   import '_/guideline-comp.svelte';
   import '_/feedback-comp.svelte';
   import '_/cursor-comp.svelte';
+  import '_/watermark-comp.svelte';
   import '_/toast-comp.svelte';
   import '_/mask-comp.svelte';
   import { onMount, tick } from 'svelte';
@@ -31,7 +34,8 @@
     isShowIntro,
     isShowGuide,
     isShowFeedback,
-    isShowCursor
+    isShowCursor,
+    isShowWatermark
   } from '@/store/store';
 </script>
 

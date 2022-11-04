@@ -1,5 +1,5 @@
 import { sel, CE, sleep } from '@/helper/func';
-import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams, isShowFeedback, setCursorParams, clear } from '@/store/store';
+import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams, isShowFeedback, setCursorParams, setWatermarkParams, clear } from '@/store/store';
 (function (window) {
   if (!window) return;
   if (window.webAssistant) return;
@@ -17,6 +17,13 @@ import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams,
           clear();
         }
       });
+    },
+    reset() {
+      const comp = document.querySelector('body > web-assistant');
+      if (comp) {
+        document.body.removeChild(comp);
+      }
+      this.init();
     },
     // show mask
     mask(payload) {
@@ -55,6 +62,11 @@ import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams,
       this.init();
       if (!payload) return console.error('no params');
       return setCursorParams(payload);
+    },
+    watermark(payload) {
+      this.init();
+      if (!payload) return console.error('no params');
+      return setWatermarkParams(payload);
     },
     sleep(time) {
       return sleep(time);

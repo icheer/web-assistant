@@ -22,6 +22,9 @@ export const feedbackParams = writable({});
 export const isShowCursor = writable(false);
 export const cursorParams = writable({});
 
+export const isShowWatermark = writable(false);
+export const watermarkParams = writable({});
+
 let maskTimer = null;
 export const showMask = async (payload = {}) => {
   await sleep(DURATION);
@@ -217,4 +220,18 @@ export const setCursorParams = async payload => {
       resolve();
     }, totalTime);
   });
+};
+
+export const setWatermarkParams = async payload => {
+  await sleep(DURATION);
+  let params = {
+    patterns: [],
+    dotSize: 10,
+    dotGap: 30,
+    patternGap: 200,
+    color: '#eee'
+  };
+  params = Object.assign(params, payload);
+  watermarkParams.set(params);
+  isShowWatermark.set(true);
 };

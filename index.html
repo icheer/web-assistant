@@ -291,6 +291,42 @@
           console.log('promise resolved...');
         });
       }
+      window.showWatermark = function () {
+        window.webAssistant.watermark({
+          persisted: true,
+          color: '#ddd',
+          dotSize: 5,
+          dotGap: 15,
+          patternGap: 150,
+          patterns: [
+            [
+              [1, 0, 0],
+              [1, 1, 1],
+              [0, 1, 1]
+            ],
+            [
+              [1, 1, 0],
+              [1, 0, 0],
+              [1, 0, 0]
+            ],
+            [
+              [0, 0, 0],
+              [0, 0, 1],
+              [0, 1, 1]
+            ],
+            [
+              [1, 0, 0],
+              [0, 1, 0],
+              [1, 0, 0]
+            ],
+            [
+              [0, 1, 1],
+              [1, 0, 0],
+              [0, 0, 0]
+            ],
+          ]
+        });
+      }
       window.showToast1 = function () {
         window.webAssistant
           .toast({ text: 'Hello world!', duration: 1800 })
@@ -368,6 +404,10 @@
     <button onclick="showCursor3()">Show cursor (3 cursor appearance)</button>
     <button class="code" onclick="getStr(showCursor3)">show code...</button>
     <small style="color: red; font-weight: 700;">&nbsp;← New!</small>
+    <br>
+    <br>
+    <button onclick="showWatermark()">Show watermark</button>
+    <button class="code" onclick="getStr(showWatermark)">show code...</button>
     <br>
     <br>
     <button onclick="showMask()">Show mask</button>
