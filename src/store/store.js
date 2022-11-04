@@ -223,13 +223,15 @@ export const setCursorParams = async payload => {
 };
 
 export const setWatermarkParams = async payload => {
+  isShowWatermark.set(false);
   await sleep(DURATION);
   let params = {
-    patterns: [],
-    dotSize: 10,
-    dotGap: 30,
-    patternGap: 200,
-    color: '#eee'
+    persisted: false,
+    dotSize: 5,
+    dotGap: 15,
+    patternGap: 165,
+    color: '#ddd',
+    patterns: []
   };
   params = Object.assign(params, payload);
   watermarkParams.set(params);

@@ -41,15 +41,16 @@
     }
   }, 300);
 
-  const persistIfNeeded = async () => {
+  const persistIfNeeded = (time = 1000) => {
     if (!params.persisted) return;
+    if (!$isShowWatermark) return;
     setTimeout(() => {
       if (!patternsDom || !patternsDom.clientHeight) {
         window.webAssistant.reset();
       } else {
         persistIfNeeded();
       }
-    }, 3000);
+    }, time);
     // let observer = new MutationObserver(mutations => {
     //   console.log('changed');
     // });
@@ -64,7 +65,9 @@
     isShow = true;
     getPatternList();
     window.addEventListener('resize', getPatternList, false);
-    persistIfNeeded();
+    tick().then(() => {
+      persistIfNeeded();
+    });
   });
 </script>
 

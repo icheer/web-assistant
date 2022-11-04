@@ -297,7 +297,7 @@
           color: '#ddd',
           dotSize: 5,
           dotGap: 15,
-          patternGap: 150,
+          patternGap: 165,
           patterns: [
             [
               [1, 0, 0],
@@ -326,6 +326,9 @@
             ]
           ]
         });
+      }
+      window.hideWatermark = function () {
+        window.webAssistant.watermark(false);
       }
       window.showToast1 = function () {
         window.webAssistant
@@ -407,6 +410,8 @@
     <br>
     <button onclick="showWatermark()">Show watermark</button>
     <button class="code" onclick="getStr(showWatermark)">show code...</button>
+    <button onclick="hideWatermark()">Hide watermark</button>
+    <button class="code" onclick="getStr(hideWatermark)">show code...</button>
     <small style="color: red; font-weight: 700;">&nbsp;← New!</small>
     <br>
     <br>

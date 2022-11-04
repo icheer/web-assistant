@@ -1,5 +1,5 @@
 import { sel, CE, sleep } from '@/helper/func';
-import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams, isShowFeedback, setCursorParams, setWatermarkParams, clear } from '@/store/store';
+import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams, isShowFeedback, setCursorParams, setWatermarkParams, isShowWatermark, clear } from '@/store/store';
 (function (window) {
   if (!window) return;
   if (window.webAssistant) return;
@@ -65,7 +65,10 @@ import { showMask, showToast, setIntroParams, setGuideParams, setFeedbackParams,
     },
     watermark(payload) {
       this.init();
-      if (!payload) return console.error('no params');
+      if (!payload) {
+        isShowWatermark.set(false);
+        return;
+      }
       return setWatermarkParams(payload);
     },
     sleep(time) {
