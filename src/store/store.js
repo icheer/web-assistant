@@ -223,7 +223,6 @@ export const setCursorParams = async payload => {
 };
 
 export const setWatermarkParams = async payload => {
-  isShowWatermark.set(false);
   await sleep(DURATION);
   let params = {
     persisted: false,
