@@ -43,7 +43,7 @@
   "description": "A simple web component built with svelte, providing version introduction & guideline instruction UI.",
   "version": "1.2.8",
   "author": "icheer@live.com",
-  "homepage": "http://guidebook.topurl.cn/",
+  "homepage": "http://guidebook.topurl.cn",
   "license": "MIT",
   "dependencies": {
     "html2canvas": "^1.4.0",
