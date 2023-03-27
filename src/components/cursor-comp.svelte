@@ -15,7 +15,7 @@
   import { get, cursorParams, isShowCursor, clear } from '@/store/store';
   import { sel, copy, sleep, noop } from '@/helper/func';
 
-  import { cursorDefault, cursorReverse, cursorPointer } from '@/assets/img';
+  import imgsObject from '@/assets/img';
   const durationAtEnd = 300;
   const durationBeforeClick = 150;
   const durationClick = 150;
@@ -41,15 +41,7 @@
   $: clickEffect = getAttr('clickEffect', false);
   $: stay = getAttr('stay', 0);
   $: noMask = !getAttr('overlay');
-  $: {
-    if (type === 'reverse') {
-      imgCursor = cursorReverse;
-    } else if (type === 'pointer') {
-      imgCursor = cursorPointer;
-    } else {
-      imgCursor = cursorDefault;
-    }
-  }
+  $: imgCursor = imgsObject.cursors[type] || imgsObject.cursors['default'];
 
   onMount(() => {
     start();
