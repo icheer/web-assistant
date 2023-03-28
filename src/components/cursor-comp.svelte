@@ -138,7 +138,7 @@
   }
 
   async function insertStyle() {
-    await sleep(0);
+    await tick();
     const percentageShrink =
       time <= durationAtEnd
         ? '99%'
