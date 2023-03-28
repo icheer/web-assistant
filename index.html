@@ -267,7 +267,7 @@
       }
       window.showCursor2 = function () {
         window.webAssistant.cursor({
-          type: 'reverse', // default, reverse, pointer, move, grab
+          type: 'reverse',
           scale: 0.75,
           to: 'button.code.cursor',
           duration: 1000,
@@ -277,7 +277,7 @@
       }
       window.showCursor3 = function () {
         window.webAssistant.cursor({
-          type: 'pointer',
+          type: 'pointer', // default, reverse, pointer, move, grab
           scale: 2,
           from: document.body,
           to: 'table',
@@ -404,7 +404,7 @@
     <button class="code" onclick="getStr(showCursor1)">show code...</button>
     <button onclick="showCursor2()">Show cursor (even click after moving)</button>
     <button class="code cursor" onclick="getStr(showCursor2)">show code...</button>
-    <button onclick="showCursor3()">Show cursor (3 cursor appearance)</button>
+    <button onclick="showCursor3()">Show cursor (5 cursor appearance)</button>
     <button class="code" onclick="getStr(showCursor3)">show code...</button>
     <br>
     <br>
