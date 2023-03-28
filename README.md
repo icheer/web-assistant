@@ -206,7 +206,7 @@ window.webAssistant.feedback({
 ### cursor params:
 | Key | Description | Type | Default value |
 | ---- | ---- | ---- | ---- |
-| type | Cursor appearance: default/reverse/pointer | String | default |
+| type | Cursor appearance: default/reverse/pointer/move/grab | String | default |
 | from | Position where cursor moves from (can be x,y or css selector. i.e. `100,300` or `button.submit` or `document.body`) | String or HTMLElement | - |
 | to | [Required] Position where cursor moves to (same as 'from') | String or HTMLElement | - |
 | scale | Cursor's scale | Number | 1 |

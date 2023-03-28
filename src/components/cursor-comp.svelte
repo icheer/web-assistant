@@ -32,7 +32,7 @@
   let timer = null;
 
   $: params = get(cursorParams);
-  $: type = getAttr('type');
+  $: type = getAttr('type', 'default');
   $: scale = getAttr('scale');
   $: from = getAttr('from');
   $: to = getAttr('to');
