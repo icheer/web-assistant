@@ -137,7 +137,8 @@
     return { x, y };
   }
 
-  function insertStyle() {
+  async function insertStyle() {
+    await sleep(0);
     const percentageShrink =
       time <= durationAtEnd
         ? '99%'
